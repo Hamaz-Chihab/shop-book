@@ -1,0 +1,29 @@
+/* Error container styles */
+.error-container {
+    max-width: 600px;
+    margin: auto;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.error-container h1 {
+    font-size: 3rem;
+    color: #ff6347;
+}
+
+.error-container p {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.error-link {
+    color: blueviolet;
+    text-decoration: underline;
+    transition: color 0.3s;
+}
+
+.error-link:hover {
+    color: #333;
+}
