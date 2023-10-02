@@ -7,7 +7,7 @@ exports.postAddproduct = (req, res, next) => {
 
 exports.getAddproduct = (req, res, next) => {
     console.log('this is add-product midlleware');
-    res.render('add-product', {
+res.render('add-product', {
         titlePage: 'add-product',
         path: '/admin/add-product ',
         formsCSS: true,
