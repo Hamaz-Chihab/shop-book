@@ -8,6 +8,6 @@ module.exports = class Product {//do not forget the capital letter
         products.push(this);
     }
     fetchaAll() {
-        return this.product
+        return products;
     }
 }
