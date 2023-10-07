@@ -1,12 +1,19 @@
+//basic system: 
 const express = require('express');
-const router = express.Router();
+//path system :
 const path = require('path');
-const rootDir = require('../util/path.js');
+const router = express.Router();
+module.exports = router;
+
+//controller system:
 const productController = require('../controllers/products');
 
-const adminData = require('./admin.js');
 
 
+//shop/product getmiddleware :
 router.get('/', productController.getProduct);
 
-module.exports = router;
+
+
+
+//export the 
