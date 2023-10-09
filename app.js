@@ -1,8 +1,12 @@
-//the basic system :
+//create the web server 
 const http = require('http');
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+
+
+const router = express.Router();
+
 
 
 app.set('view engine', 'ejs');
@@ -26,3 +30,5 @@ const errorController = require('./controllers/error');
 
 app.use(errorController.get4O4);
 app.listen(3000);
+module.exports = router;
+

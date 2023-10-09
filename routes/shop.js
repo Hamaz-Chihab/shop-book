@@ -6,14 +6,15 @@ const router = express.Router();
 module.exports = router;
 
 //controller system:
-const productController = require('../controllers/products');
+const shopController = require('../controllers/shop');
 
 
 
 //shop/product getmiddleware :
-router.get('/', productController.getProduct);
+router.get('/', shopController.getIndex);//the starting page 
+
+router.get('/products',shopController.getProduct);
+router.get('/cart')
+router.get('/checkout');
 
 
-
-
-//export the 
