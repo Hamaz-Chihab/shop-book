@@ -42,3 +42,5 @@ exports.getCheckout =(req, res, next)=>{
     });
 };
 // exports.products = Products;
+// exports.products = Products;
+// exports.products = Products;
