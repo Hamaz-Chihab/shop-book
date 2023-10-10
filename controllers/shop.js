@@ -1,21 +1,23 @@
 //the logique  
-const Products = require('../modules/product');//importing the class from module file
+const Product = require('../modules/product');//importing the class from module file
 //Product middleware of shop route :
-exports.getProduct = (req, res, next) => {
-    Products.fetchAll(product => {
+exports.getProducts = (req, res, next) => {
+    Product.fetchAll(products => {
         res.render('shop/product-list', {//the ejs file to render it 
-            prods: product,//prods is used for shop-route and products is in the server 
-            titlePage: 'shop-product',
-            path: '/shop-product',
-            hasProduct: product.length > 0,
-            activeShop: true,
-            productCSS: true
+            prods: products,//prods is used for shop-route and products is in the server 
+            titlePage: 'All-Products',
+            path: '/shop-products',
         });//rendering the shop template + Data object used in shop.pug});//to retrieve all the products in products-constant but the fetchll function does not return anny thing 'error'
     });
 };
+exports.getProduct = (req, res, next)=>{
+    const prodId = req.params.productId;//the productId is a quiry param in the shop-route 
+    console.log(prodId);
+    res.redirect('/');
+};
 //index middleware of shop route 
 exports.getIndex=(req ,res ,next )=>{
-    Products.fetchAll(product => {
+    Product.fetchAll(product => {
         res.render('shop/index', {//the ejs file to render it 
             prods: product,//prods is used for shop-route and products is in the server 
             titlePage: 'shop-index',
@@ -45,4 +47,4 @@ exports.getOrders =(req, res, next)=>{
         path: '/shop-orders'
     });
 };
-// exports.products = Products;
+// exports.products = Product;

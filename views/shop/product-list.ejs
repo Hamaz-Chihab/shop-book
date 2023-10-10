@@ -20,11 +20,10 @@
                             <%= product.description %>
                         </p>
                        
-                        <a href="/">Details</a>
+                        <a href="/products/<%=product.id%>">Details</a>
                         <form action="/add-to -cart" method="post">
                             <button>Add to Cart</button>
                         </form>
-                        <button>Add to Cart</button>
                         <hr>
                         <% }%>
                 </section>

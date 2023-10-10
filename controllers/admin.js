@@ -1,9 +1,9 @@
 const Products = require('../modules/product');//importing the class from module file
 //middleware function of admin route :
 exports.getAddproduct = (req, res, next) => {
-    res.render('admin/add-product', {
+    res.render('admin/add-product',{
         titlePage: 'add-product',
-        path: '/add-product',
+        path: '/admin/add-product',
         formsCSS: true,
         productCSS: true,
         activeAddProduct: true
