@@ -20,9 +20,6 @@ exports.getIndex=(req ,res ,next )=>{
             prods: product,//prods is used for shop-route and products is in the server 
             titlePage: 'shop-index',
             path: '/shop-index',
-            hasProduct: product.length > 0,
-            activeShop: true,
-            productCSS: true
         });//rendering the shop template + Data object used in shop.pug});//to retrieve all the products in products-constant but the fetchll function does not return anny thing 'error'
     });  
 };
@@ -38,9 +35,13 @@ exports.getCart=(req, res, next)=>{
 exports.getCheckout =(req, res, next)=>{
     res.render('shop/checkout',{
         titlePage: 'checkout',
-        path: 'shop/checkout'
+        path: '/shop-checkout'
+    });
+};
+exports.getOrders =(req, res, next)=>{
+    res.render('shop/orders',{
+        titlePage: 'shop-orders',
+        path: '/shop-orders'
     });
 };
 // exports.products = Products;
-// exports.products = Products;
-//Hech

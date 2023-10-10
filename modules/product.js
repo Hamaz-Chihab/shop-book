@@ -33,7 +33,7 @@ module.exports = class Product {//do not forget the capital letter
         });
         fs.readFile(p, (err, filecontent) => {});
     };
-    //static :can call the method on the class and not for a external obj
+//static :can call the method on the class and not for a external obj
     static fetchAll(cb) {
         getProductsFromFile(cb);
     }

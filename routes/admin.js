@@ -9,9 +9,11 @@ const path = require('path');
 //controle system:
 const adminController = require('../controllers/admin');
 //adim/add-product getmiddleware :
-router.get('/add-product', adminController.getAddproduct);
-
+router.get('admin/add-product', adminController.getAddproduct);
 //adim/add-product postmiddleware :
-router.post('/add-product', adminController.postAddproduct);
+router.post('admin/add-product', adminController.postAddproduct);
+//adim/products postmiddleware :
+router.get('admin/products', adminController.postAddproduct);
+
 
 module.exports = router;//we don't need to export the routes after controllers

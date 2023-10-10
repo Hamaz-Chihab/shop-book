@@ -1,4 +1,6 @@
 //404 midellware  controller :  
-export function get4O4(req, res, next) {
-    res.status(404).render('error', { titlePage: 'error page ' });
+function get4O4(req, res, next){
+    res.status(404).render('./views/error.ejs', { titlePage: 'error page ' });
 }
+
+module.exports = get4O4;

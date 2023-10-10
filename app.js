@@ -16,7 +16,7 @@ const path = require('path');
 const rootDir = require('./util/path.js');
 //importing the routes :
 const adminData = require('./routes/admin');//importing the admin-route 
-app.use('/admin', adminData.routeDir);
+app.use('/admin', adminData.route);
 const shopRoutes = require('./routes/shop.js');//importing the shop-route 
 app.use(shopRoutes);
 
@@ -26,9 +26,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 //importion error controller file :
-const errorController = require('./controllers/error');
+// const errorController = require('./controllers/error.js');
+// app.use(errorController.get404);
+app.get('/', function(req, res, next) {
+    res.status(404).render('error', { title: 'error page' });
+  });
 
-app.use(errorController.get4O4);
 app.listen(3000);
 module.exports = router;
 

@@ -13,11 +13,15 @@
                         <h2>
                             <%= product.title %>
                         </h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate, facere repudiandae sed
-                            beatae
-                            quis.
+                        <p>                            
+                            <%= product.description %>
                         </p>
-                        <p class="price">$19.99</p>
+                        <p class="price">
+                            <%= product.price %> $
+                        </p>
+                        <form action="/add-to -cart" method="post">
+                            <button>Add to Cart</button>
+                        </form>
                         <button>Add to Cart</button>
                         <hr>
                         <% }%>
