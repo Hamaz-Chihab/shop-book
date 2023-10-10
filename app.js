@@ -15,8 +15,9 @@ app.set('views', 'views');
 const path = require('path');
 const rootDir = require('./util/path.js');
 //importing the routes :
-const adminData = require('./routes/admin');//importing the admin-route 
-app.use('/admin', adminData.route);
+const adminData = require('./routes/admin.js');//importing the admin-route 
+app.use('/admin', adminData);
+
 const shopRoutes = require('./routes/shop.js');//importing the shop-route 
 app.use(shopRoutes);
 

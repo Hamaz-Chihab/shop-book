@@ -28,16 +28,17 @@ exports.getIndex=(req ,res ,next )=>{
 exports.getCart=(req, res, next)=>{
     res.render('shop/cart', {
         titlePage:'shop-cart',
-        path: '/shop-cart'
+        path: '/shop-cart'//the views file path
     });
 };
 //checkout middleware in shop route 
 exports.getCheckout =(req, res, next)=>{
     res.render('shop/checkout',{
-        titlePage: 'checkout',
+        titlePage: 'shop-checkout',
         path: '/shop-checkout'
     });
 };
+//orders middleware in shop route 
 exports.getOrders =(req, res, next)=>{
     res.render('shop/orders',{
         titlePage: 'shop-orders',

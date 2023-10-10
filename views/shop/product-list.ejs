@@ -13,12 +13,14 @@
                         <h2>
                             <%= product.title %>
                         </h2>
-                        <p>                            
-                            <%= product.description %>
-                        </p>
                         <p class="price">
                             <%= product.price %> $
                         </p>
+                        <p>                            
+                            <%= product.description %>
+                        </p>
+                       
+                        <a href="/">Details</a>
                         <form action="/add-to -cart" method="post">
                             <button>Add to Cart</button>
                         </form>

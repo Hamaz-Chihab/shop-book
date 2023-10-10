@@ -1,4 +1,5 @@
 <%- include('../includes/head.ejs')%>
+
     <link rel="stylesheet" href="/css/product.css">
     </head>
 
@@ -6,7 +7,7 @@
         <%- include('../includes/navigation.ejs')%>
 
             <main>
-                <form class="product-form" action="/admin/add-product" method="post">
+                <form class="product-form" action="/admin/add-product" method="POST">
                     <div class="form-control">
                         <label for="title">Title</label>
                         <input type="text" name="title" id="title">
@@ -24,7 +25,7 @@
                         <textarea name="description" id="description" cols="30" rows="5"></textarea>
                     </div>
 
-                    <button type="submit" class="active" href="/admin/add-product">Add Product</button>
+                    <button type="submit" class="active" href="/admin/add-products">Add Product</button>
                 </form>
             </main>
             <%- include('../includes/end.ejs')%>
