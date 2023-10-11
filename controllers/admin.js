@@ -3,7 +3,7 @@ const Products = require('../modules/product');//importing the class from module
 exports.getAddproduct = (req, res, next) => {
     res.render('admin/add-product',{
         titlePage: 'add-product',
-        path: '/admin/add-product',
+        path: '/add-product',
         formsCSS: true,
         productCSS: true,
         activeAddProduct: true
@@ -24,10 +24,10 @@ exports.postAddproduct = (req, res, next) => {
 //products middleware in admin route 
 exports.getProducts = (req, res, next)=> {
     Products.fetchAll(product => {
-        res.render('admin/product', {//the ejs file to render it 
+        res.render('admin/products', {//the ejs file to render it 
             prods: product,//prods is used for shop-route and products is in the server 
             titlePage: 'admin-product',
-            path : '/admin/products'//the path of the porte opened 
+            path : '/products'//the path of the porte opened 
         });
     });
 };

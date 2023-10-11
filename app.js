@@ -3,6 +3,7 @@ const http = require('http');
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+app.use(bodyParser.urlencoded({ extended: false }));
 
 
 const router = express.Router();
@@ -17,7 +18,6 @@ const rootDir = require('./util/path.js');
 //importing the routes :
 const adminData = require('./routes/admin.js');//importing the admin-route 
 app.use('/admin', adminData);
-
 const shopRoutes = require('./routes/shop.js');//importing the shop-route 
 app.use(shopRoutes);
 

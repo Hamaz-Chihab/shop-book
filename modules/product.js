@@ -31,7 +31,7 @@ module.exports = class Product {//do not forget the capital letter
         this.id = Math.random().toString();
         getProductsFromFile(products=>{
             products.push(this);
-            fs.writefile(p, JSON.stringify(products), err => {
+            fs.writeFile(p, JSON.stringify(products), err => {
                 console.log(err);
             });
         });
@@ -41,6 +41,11 @@ module.exports = class Product {//do not forget the capital letter
     static fetchAll(cb) {
         getProductsFromFile(cb);
     }
-     
+ static findById (id, cb){
+    getProductsFromFile(products=>{
+        const product = products.find( p => p.id === id);
+       cb(product);
+    });
+ };
 };
 

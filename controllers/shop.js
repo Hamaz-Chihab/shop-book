@@ -1,5 +1,6 @@
-//the logique  
 const Product = require('../modules/product');//importing the class from module file
+
+
 //Product middleware of shop route :
 exports.getProducts = (req, res, next) => {
     Product.fetchAll(products => {
@@ -10,11 +11,18 @@ exports.getProducts = (req, res, next) => {
         });//rendering the shop template + Data object used in shop.pug});//to retrieve all the products in products-constant but the fetchll function does not return anny thing 'error'
     });
 };
+
+
 exports.getProduct = (req, res, next)=>{
     const prodId = req.params.productId;//the productId is a quiry param in the shop-route 
-    console.log(prodId);
+    Product.findById(prodId,product =>{//methode to 
+        console.log(product);
+    });
+    // console.log(prodId);
     res.redirect('/');
 };
+
+
 //index middleware of shop route 
 exports.getIndex=(req ,res ,next )=>{
     Product.fetchAll(product => {
@@ -25,6 +33,7 @@ exports.getIndex=(req ,res ,next )=>{
         });//rendering the shop template + Data object used in shop.pug});//to retrieve all the products in products-constant but the fetchll function does not return anny thing 'error'
     });  
 };
+
 
 //cart middleware in shop route 
 exports.getCart=(req, res, next)=>{
