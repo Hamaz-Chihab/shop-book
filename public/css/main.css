@@ -33,6 +33,7 @@ p {
     padding: 0 1.5rem;
     display: flex;
     align-items: center;
+    overflow-x: hidden;
 }
 
 .main-header__item-list {

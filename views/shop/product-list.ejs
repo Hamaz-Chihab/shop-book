@@ -6,27 +6,29 @@
     <%- include('../includes/navigation.ejs')%>
 
         <body>
-
+            <h1>this is the shop-products in the Shop Route PAGE </h1>
             <% if(prods.length> 0 ){%>
                 <section class="product">
                     <%for(let product of prods) {%>
-                        <img
-                            src= <%=product.imageUrl %>
-                        <h2>
-                            <%= product.title %>
-                        </h2>
-                        <p class="price">
-                            <%= product.price %> $
-                        </p>
-                        <p>                            
-                            <%= product.description %>
-                        </p>
-                       
-                        <a href="/products/<%=product.id%>">Details</a>
-                        <form action="/shop-cart" method="post">
-                            <button>Add to Cart</button>
-                        </form>
-                        <hr>
+                        <div class="product_card">                                
+                            <img src= <%=product.imageUrl %> alt="">
+                            <h2>
+                                <%= product.title %>
+                            </h2>
+                            <p class="price">
+                                <%= product.price %> $
+                            </p>
+                            <p>                            
+                                <%= product.description %>
+                            </p>
+                        
+                            <!-- <a href="/products/">Details</a> -->
+                            <form action="/shop-cart" method="post">
+                                <a href="/products/<%=product.id%>">Details</a>
+                                <button>Add to Cart</button>
+                            </form>
+                            </div>
+                        
                         <% }%>
                 </section>
                 <%} else {%>

@@ -40,10 +40,13 @@ module.exports = class Product {//do not forget the capital letter
 //static :can call the method on the class and not for a external obj
     static fetchAll(cb) {
         getProductsFromFile(cb);
-    }
- static findById (id, cb){
+    };
+
+    
+//to get the /shop-product route (product-detail) 
+ static findById (id, cb){  //to filter the route by the ID of the product
     getProductsFromFile(products=>{
-        const product = products.find( p => p.id === id);
+        const product = products.find( p => p.id === id);//to find the object-ID  
        cb(product);
     });
  };
