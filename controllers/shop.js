@@ -41,10 +41,14 @@ exports.getProduct = (req, res, next) => {
   const prodId = req.params.productId; //the productId is a quiry param in the shop-route
   Product.findById(prodId, (product) => {
     //methode to
-    console.log(product);
+    // console.log(product);
+    res.render("shop/product-detail.ejs", {
+      product: product,
+      titlePage: product.title,
+      path: "/shop-products",
+    });
   });
-  // console.log(prodId);
-  res.redirect('/');
+  //   console.log(prodId);
 };
 
 //Products middleware of shop route :
