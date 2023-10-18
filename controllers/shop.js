@@ -8,6 +8,12 @@ exports.getCart = (req, res, next) => {
   });
 };
 
+exports.postCart= (req,res,next )=>{
+const prodId = req.body.productId;//link between the view file and the midleware 
+ console.log(prodId);
+ res.redirect('/shop-cart');
+
+};
 //checkout middleware in shop route
 exports.getCheckout = (req, res, next) => {
   res.render("shop/checkout", {

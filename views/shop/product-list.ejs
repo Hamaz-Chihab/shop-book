@@ -23,10 +23,7 @@
                             </p>
                         
                             <!-- <a href="/products/">Details</a> -->
-                            <form action="/shop-cart" method="post">
-                                <a href="/shop-product/<%=product.id%>">Details</a>
-                                <button>Add to Cart</button>
-                            </form>
+                            <%- include('../includes/add-to-cart.ejs',{product : product})%>
                             </div>
                             
                         <% }%>
