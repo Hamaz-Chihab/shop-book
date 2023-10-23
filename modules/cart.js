@@ -17,26 +17,25 @@ module.exports = class Cart {
       if (!err) {
         cart = JSON.parse(fileContent);
       }
-//analyze the cart => find existing product
+      //analyze the cart => find existing product
       const existingProductIndex = cart.products.findIndex(
         (prod) => prod.id === id
       ); //to search for a product with a specific id.
       const existingProduct = cart.products[existingProductIndex];
       let updatedProduct;
-//add a new product / increase the quantity
+      //add a new product / increase the quantity
       if (existingProduct) {
         // found in the cart
         updatedProduct = { ...existingProduct }; //a new object updatedProduct is created by using the spread ({...}) operator to make a "shallow copy" = 'a copy whose properties share the same references as those of the source object from which the copy was made' of the existingProduct object.
         updatedProduct.qty = updatedProduct.qty + 1;
-        cart.products = {...cart.products};
+        cart.products = [...cart.products];
         cart.products[existingProductIndex] = updatedProduct;
-
       } else {
         updatedProduct = { id: id, qty: 1 };
         cart.products = [...cart.products, updatedProduct];
       }
       cart.totalPrice = cart.totalPrice = productPrice;
-      fs.writeFile(p,JSON.stringify(cart),err =>{
+      fs.writeFile(p, JSON.stringify(cart), (err) => {
         console.log(err);
       });
     });
