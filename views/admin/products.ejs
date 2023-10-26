@@ -1,9 +1,7 @@
-<%- include('../includes/head.ejs')%>
-    <link rel="stylesheet" href="/css/product.css">
+    <!-- <link rel="stylesheet" href="/css/product.css">
     </head>
 
     <body>
-        <%- include('../includes/navigation.ejs')%>
 
             <main>
                 <form class="product-form" action="/admin/add-product" method="post">
@@ -24,13 +22,55 @@
                         <textarea name="description" id="description" cols="30" rows="5"></textarea>
                     </div>
 
-                    <button type="submit" class="active" href="/admin/edit-product">Edit</button>
-                    <button type="submit" class="active" href="/admin/edit-product">Delete</button>
-
                 </form>
             </main>
-            <%- include('../includes/end.ejs')%>
 
     </body>
 
-    </html>
+    </html>  -->
+
+
+    <%- include('../includes/head.ejs')%>
+    <link rel="stylesheet" href="/css/shop.css">
+    <link rel="stylesheet" href="/css/product-list.css">
+
+    </head>
+    <%- include('../includes/navigation.ejs')%>
+
+        <body>
+            <h1>this is the shop-products in the Shop Route PAGE </h1>
+            <% if(prods.length> 0 ){%>
+                <section class="product">
+                    <%for(let product of prods) {%>
+                        <div class="product_card">                                
+                            <img src= <%=product.imageUrl %> alt="">
+                            <h2>
+                                <%= product.title %>
+                            </h2>
+                            <p class="price">
+                                <%= product.price %> $
+                            </p>
+                            <p>                            
+                                <%= product.description %>
+                            </p>
+                        
+                            <!-- <a href="/products/">Details</a> -->
+                            <%- include('../includes/add-to-cart.ejs',{product : product})%>
+                            </div>
+                            
+                            
+                    
+                            <button type="submit" class="active" href="/admin/edit-product">Edit</button>
+                            <button type="submit" class="active" href="/admin/edit-product">Delete</button>
+
+                        <% }%>
+                </section>
+                <%} else {%>
+                    <h1>NO Product yet </h1>
+                    <%}%>
+                        <%-include('../includes/end.ejs')%>
+        </body>
+
+        </html>
+
+

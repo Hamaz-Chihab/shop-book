@@ -1,5 +1,5 @@
 const Product = require("../modules/product"); //importing the class from module file
-
+const Cart = require("../modules/cart"); //importport the cart module
 //cart middleware in shop route
 exports.getCart = (req, res, next) => {
   res.render("shop/cart", {
@@ -7,12 +7,13 @@ exports.getCart = (req, res, next) => {
     path: "/shop-cart", //the views file path
   });
 };
-
-exports.postCart= (req,res,next )=>{
-const prodId = req.body.productId;//link between the view file and the midleware 
- console.log(prodId);
- res.redirect('/shop-cart');
-
+exports.postCart = (req, res, next) => {
+  const prodId = req.body.productId; //link between the view file and the midleware
+  Product.findById(prodId, (product) => {
+    Cart.addProduct(prodId, product.price);
+  });
+  console.log(prodId); //print the productID
+  res.redirect("/shop-cart");
 };
 //checkout middleware in shop route
 exports.getCheckout = (req, res, next) => {

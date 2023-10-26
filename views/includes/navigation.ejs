@@ -1,27 +1,52 @@
 <header class="main-header">
-    <nav class="main-header__nav">
-        <ul class="main-header__item-list">
-            <li class="main-header__item"><a class="<%= path === '/' ? 'active' : ''%>" href="/">
-                Shop</a>
-            </li>
-            <li class="main-header__item"><a class="<%= path === '/products' ? 'active' : ''%>"href="/products">
-                    Products</a><%# new link shop route %>
-            </li>
-            <li class="main-header__item"><a class="<%= path === '/shop-checkout' ? 'active' : ''%>"href="/shop-checkout">
-                checkout</a><%# new link shop route %>
-        </li>
-            <li class="main-header__item"><a class="<%= path === '/shop-cart' ? 'active' : ''%>"href="/shop-cart">
-                Cart </a> <%# new link shop route  %>
-             </li>
-             <li class="main-header__item"><a class="<%= path === '/shop-orders' ? 'active' : ''%>"href="/shop-orders">
-                Orders</a> <%# new link in the admin route %>
-             </li>
-             <li class="main-header__item"><a class="<%= path === '/admin/add-product' ? 'active' : ''%>"href="/admin/add-product">
-                Add Product</a>
-             </li>
-             <li class="main-header__item"><a class="<%= path === '/admin/products' ? 'active' : ''%>"href="/admin/products">
-                Admin Products</a> <%# new link in the admin route %>
-             </li>
-        </ul>
-    </nav>
+  <nav class="main-header__nav">
+    <ul class="main-header__item-list">
+      <li class="main-header__item">
+        <a class="<%= path === '/' ? 'active' : ''%>" href="/"> Shop</a>
+      </li>
+      <li class="main-header__item">
+        <a class="<%= path === '/products' ? 'active' : ''%>" href="/products">
+          Products</a
+        ><%# new link shop route %>
+      </li>
+      <li class="main-header__item">
+        <a
+          class="<%= path === '/shop-checkout' ? 'active' : ''%>"
+          href="/shop-checkout">
+          checkout</a
+        ><%# new link shop route %>
+      </li>
+      <li class="main-header__item">
+        <a
+          class="<%= path === '/shop-cart' ? 'active' : ''%>"
+          href="/shop-cart">
+          Cart
+        </a>
+        <%# new link shop route %>
+      </li>
+      <li class="main-header__item">
+        <a
+          class="<%= path === '/shop-orders' ? 'active' : ''%>"
+          href="/shop-orders">
+          Orders</a
+        >
+        <%# new link in the admin route %>
+      </li>
+      <li class="main-header__item">
+        <a
+          class="<%= path === '/admin/edit-product' ? 'active' : ''%>"
+          href="/admin/edit-product">
+          Add Product</a
+        >
+      </li>
+      <li class="main-header__item">
+        <a
+          class="<%= path === '/admin/products' ? 'active' : ''%>"
+          href="/admin/products">
+          Admin Products</a
+        >
+        <%# new link in the admin route %>
+      </li>
+    </ul>
+  </nav>
 </header>

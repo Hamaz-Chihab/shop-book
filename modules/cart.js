@@ -1,19 +1,17 @@
 const fs = require("fs");
 const path = require("path");
 const { stringify } = require("querystring");
-
-const p = path.join(
-  // join the given path segments into one path
-  path.dirname(process.mainModule.Filename),
-  "data",
-  "cart.json"
-); //the place we are going to stor the cart information
+// join the given path segments into one path
+// const p = path.join(path.dirname(process.mainModule.Filename),"data","cart.json");
+const p = path.join(__dirname, "..", "data", "cart.json");
+//the place we are going to stor the cart information
 
 module.exports = class Cart {
   static addProduct(id, productPrice) {
+    //the main function in cart modules accept two parametres
     //fetch the privious cart :
     fs.readFile(p, (err, fileContent) => {
-      let cart = { products: [], totalDty: 0 }; //object with two properties("array of cart"s and "total quantitye"="number of items in the cart")
+      let cart = { products: [], totalPrice: 0 }; //object with two properties("array of cart"s and "total quantitye"="number of items in the cart")
       if (!err) {
         cart = JSON.parse(fileContent);
       }
@@ -34,7 +32,8 @@ module.exports = class Cart {
         updatedProduct = { id: id, qty: 1 };
         cart.products = [...cart.products, updatedProduct];
       }
-      cart.totalPrice = cart.totalPrice = productPrice;
+      // cart.totalPrice = cart.totalPrice + productPrice;
+      cart.totalPrice = parseFloat(cart.totalPrice) + parseFloat(productPrice);
       fs.writeFile(p, JSON.stringify(cart), (err) => {
         console.log(err);
       });
