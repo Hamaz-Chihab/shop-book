@@ -25,7 +25,7 @@
                         <textarea name="description" id="description" cols="30" rows="5"></textarea>
                     </div>
 
-                    <button type="submit" class="active" href="/admin/add-products">Add Product</button>
+                    <button type="submit" class="active" href="/admin/add-products"><% if (editing ){%> Apdated Product <%}else {%>Add Product<%} %></button>
                 </form>
             </main>
             <%- include('../includes/end.ejs')%>
