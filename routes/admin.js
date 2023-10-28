@@ -14,9 +14,10 @@ router.get("/add-product", adminController.getAddProduct);
 
 router.post("/add-product", adminController.postAddProduct);
 
+router.post("/edit-product", adminController.postEditProduct);
+
 router.get("/edit-product/:productID", adminController.getEditProduct);
 
-//adim/products postmiddleware :
-
+router.post('/delete-product',adminController.postDeleteProduct);
 module.exports = router; //we don't need to export the routes after controllers
-// hello frome node js i am chihab hamaz 
+// hello frome node js i am chihab hamaz

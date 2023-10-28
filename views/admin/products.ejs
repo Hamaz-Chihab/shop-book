@@ -53,16 +53,18 @@
                             <p>                            
                                 <%= product.description %>
                             </p>
-                        
+                            
                             <!-- <a href="/products/">Details</a> -->
                             <%- include('../includes/add-to-cart.ejs',{product : product})%>
                             </div>
                             
-                            
-                    
-                            <button type="submit" class="active" href="/admin/edit-product">Edit</button>
-                            <button type="submit" class="active" href="/admin/edit-product">Delete</button>
-
+                            <div class="cart-action">
+                                <a href="/admin/edit-product/<%=product.id%>?edit=true">Edit</a>
+                                <form action="/admin/delete-product" method="post">
+                                    <input type="hidden" value="%<%=product.id%>" name="productId">
+                                    <button class="btn" type="submit">Delete</button>
+                                </form>
+                            </div>
                         <% }%>
                 </section>
                 <%} else {%>

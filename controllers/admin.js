@@ -1,35 +1,45 @@
-var bodyParser = require("body-parser");
+const bodyParser = require("body-parser");
 
-// for routes looking like this `/products?page=1&pageSize=50`
-// app.get('/products', function(req, res) {
-//   const page = req.query.page;
-//   const pageSize = req.query.pageSize;
-//   res.send(`Filter with parameters ${page} and ${pageSize});`
-// });
-
-const Product = require("../modules/product"); //importing the class from module file
 exports.getAddProduct = (req, res, next) => {
-  res.render("admin/edit-product.ejs", {
+  res.render("admin/edit-product", {
     pageTitle: "Add Product",
     path: "/admin/add-product",
     editing: false,
   });
 };
 
-//middleware function of admin route :
+const Product = require("../modules/product"); //importing the class from module file
 exports.postAddProduct = (req, res, next) => {
   const title = req.body.title; //the name attribut in the ejs file
   const imageUrl = req.body.imageUrl; //the name attribut in the ejs file
   const price = req.body.price; //the name attribut in the ejs file
   const description = req.body.description; //the name attribut in the ejs file
-  const product = new Products(title, imageUrl, description, price); //create a new const based on Product class and req.body is often used in web applications to access data that has been sent to the server as part of an HTTP request.
+  const product = new Product(null, title, imageUrl, description, price); //create a new product constractor passing all the attributs .
   product.save(); //save(push) the objetc in the array
   res.redirect("/");
 };
-//middleware function of admin route :
+
+exports.postEditProduct = (req, res, next) => {
+  const prodId = req.body.productId; //the name of the hidden input Id witch can not be updated
+  const updatedTitle = req.body.title;
+  const updatedPrice = req.body.price;
+  const updatedImageUrl = req.body.imageUrl;
+  const updatedDesc = req.body.description;
+  //the order of the attribut is important : id ,title, imageUrl, description ,price
+  const updatedProduct = new Product(
+    prodId,
+    updatedTitle,
+    updatedImageUrl,
+    updatedDesc,
+    updatedPrice
+  ); //create a new product object to save it as updated Product
+  updatedProduct.save(); //the old values would overided by the updated values
+  res.redirect("/admin/products");
+};
 
 exports.getEditProduct = (req, res, next) => {
-  const editMode = req.query.editing; //have "true" id the query param exist
+  const editMode = req.query.edit; //have "true" id the query param exist
+  // console.log(editMode);
   if (!editMode) {
     console.log("this is an error in params ??");
     console.log(editMode);
@@ -38,18 +48,23 @@ exports.getEditProduct = (req, res, next) => {
   const prodId = req.params.productID; //to have the access to the productID
   Product.findById(prodId, (product) => {
     if (!prodId) {
-      console.log("this is an error in the rendering ??");
+      //theck if the product existe
+      console.log("this is an error in the product existing ??");
       return res.redirect("/");
     }
     res.render("admin/edit-product", {
       titlePage: "Edit-product",
       path: "admins/edit-product",
       editing: editMode, //verifier si le produit exsist ??
+      product: product,
     });
   });
 };
 
-//products middleware in admin route
+
+exports.postDeleteProduct = (req, res , next)=>{
+
+};
 exports.getProducts = (req, res, next) => {
   Product.fetchAll((product) => {
     res.render("admin/products", {
