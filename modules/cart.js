@@ -1,3 +1,4 @@
+const { error } = require("console");
 const fs = require("fs");
 const path = require("path");
 const { stringify } = require("querystring");
@@ -35,6 +36,24 @@ module.exports = class Cart {
       // cart.totalPrice = cart.totalPrice + productPrice;
       cart.totalPrice = parseFloat(cart.totalPrice) + parseFloat(productPrice);
       fs.writeFile(p, JSON.stringify(cart), (err) => {
+        console.log(err);
+      });
+    });
+  }
+  static deleteProduct(id, productPrice) {
+    fs.readFile(p, (err, fileContent) => {
+      if (err) {
+        console.log("this is a error in tht deleteProduct methode :", error);
+        return; //do nothing
+      }
+      const updatedCart = { ...fileContent };
+      const product = updatedCart.products.find((prod) => prod.id === id);
+      const productQty = product.qty;
+      updatedCart.products = updatedCart.product.filter(
+        (prod) => prod.id !== id
+      ); //this line of code is creating a new array of products that does not include the product with the specified ID
+      updatedCart.totalPrice = cart.totalPrice - productPrice * productQty;
+      fs.writeFile(p, JSON.stringify(updatedCart), (err) => {
         console.log(err);
       });
     });

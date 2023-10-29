@@ -19,6 +19,16 @@ exports.postAddProduct = (req, res, next) => {
   res.redirect("/");
 };
 
+
+
+
+
+
+
+
+
+
+
 exports.postEditProduct = (req, res, next) => {
   const prodId = req.body.productId; //the name of the hidden input Id witch can not be updated
   const updatedTitle = req.body.title;
@@ -37,9 +47,16 @@ exports.postEditProduct = (req, res, next) => {
   res.redirect("/admin/products");
 };
 
+
+
+
+
+
+
 exports.getEditProduct = (req, res, next) => {
   const editMode = req.query.edit; //have "true" id the query param exist
   // console.log(editMode);
+  // editMode = true;
   if (!editMode) {
     console.log("this is an error in params ??");
     console.log(editMode);
@@ -54,7 +71,7 @@ exports.getEditProduct = (req, res, next) => {
     }
     res.render("admin/edit-product", {
       titlePage: "Edit-product",
-      path: "admins/edit-product",
+      path: "admin/edit-product",
       editing: editMode, //verifier si le produit exsist ??
       product: product,
     });
@@ -62,9 +79,20 @@ exports.getEditProduct = (req, res, next) => {
 };
 
 
-exports.postDeleteProduct = (req, res , next)=>{
 
+
+
+
+exports.postDeleteProduct = (req, res, next) => {
+  const prodId = req.body.productId;
+  Product.deleteById(prodId); //delete frome the product module
+  res.redirect("/shop-cart");
 };
+
+
+
+
+
 exports.getProducts = (req, res, next) => {
   Product.fetchAll((product) => {
     res.render("admin/products", {

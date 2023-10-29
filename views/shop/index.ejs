@@ -26,9 +26,12 @@
                             </p>
                         
                             <!-- <a href="/products/">Details</a> -->
-                          
-                            
+                          <div>
+                            <a href="/products/<% product.id %>">Details</a>
                             <%- include('../includes/add-to-cart.ejs',{product : product})%>
+
+                          </div>
+                            
                         <% }%>
                 </section>
                 <%} else {%>

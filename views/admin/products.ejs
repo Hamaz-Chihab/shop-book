@@ -60,12 +60,14 @@
                             
                             <div class="cart-action">
                                 <a href="/admin/edit-product/<%=product.id%>?edit=true">Edit</a>
-                                <form action="/admin/delete-product" method="post">
+                                <form action="/shop-cart" method="post">
                                     <input type="hidden" value="%<%=product.id%>" name="productId">
                                     <button class="btn" type="submit">Delete</button>
                                 </form>
                             </div>
                         <% }%>
+
+                        
                 </section>
                 <%} else {%>
                     <h1>NO Product yet </h1>

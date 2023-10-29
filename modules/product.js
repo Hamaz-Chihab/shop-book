@@ -2,6 +2,7 @@
 const fs = require("fs");
 const path = require("path");
 const products = [];
+const cart = require("./cart"); //extrqct the cart  object to use delete-methode
 const p = path.join(
   path.dirname(require.main.filename),
   "data",
@@ -55,6 +56,18 @@ module.exports = class Product {
       }
     });
   }
+
+  static deleteById(id) {
+    getProductsFromFile((products) => {
+      const product = products.find((prod) => prod.id === id); //extract the product object from the array to have access to the price
+      const updatedProducts = products.filter((prod) => prod.id !== id); //This line creates a new array, updatedProducts, which contains all products from the original list except for the one with the ID specified.
+      fs.writeFile(p, JSON.stringify(updatedProducts), (err) => {
+        if (!err) {
+          cart.deleteProduct(id, product.price);
+        }
+      });
+    });
+  }
   //static :can call the method on the class and not for a external obj
   static fetchAll(cb) {
     getProductsFromFile(cb);
@@ -65,7 +78,7 @@ module.exports = class Product {
     //to filter the route by the ID of the product
     getProductsFromFile((products) => {
       const product = products.find((p) => p.id === id); //to find the object-ID
-      cb(product);
+      // cb(product);
     });
   }
 };

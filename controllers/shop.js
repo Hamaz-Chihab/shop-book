@@ -7,12 +7,14 @@ exports.getCart = (req, res, next) => {
     path: "/shop-cart", //the views file path
   });
 };
+
 exports.postCart = (req, res, next) => {
   const prodId = req.body.productId; //link between the view file and the midleware
   Product.findById(prodId, (product) => {
+    // const product = products.findById(prodId);
     Cart.addProduct(prodId, product.price);
   });
-  console.log(prodId); //print the productID
+  // console.log(prodId); //print the productID
   res.redirect("/shop-cart");
 };
 //checkout middleware in shop route
