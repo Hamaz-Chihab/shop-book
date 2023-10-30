@@ -54,14 +54,14 @@
                                 <%= product.description %>
                             </p>
                             
-                            <!-- <a href="/products/">Details</a> -->
+                            <a href="/products/">Details</a>
                             <%- include('../includes/add-to-cart.ejs',{product : product})%>
                             </div>
                             
                             <div class="cart-action">
                                 <a href="/admin/edit-product/<%=product.id%>?edit=true">Edit</a>
                                 <form action="/shop-cart" method="post">
-                                    <input type="hidden" value="%<%=product.id%>" name="productId">
+                                    <input type="hidden" value="<%=product.id%>" name="productId">
                                     <button class="btn" type="submit">Delete</button>
                                 </form>
                             </div>

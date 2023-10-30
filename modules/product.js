@@ -48,7 +48,7 @@ module.exports = class Product {
           console.log(err);
         });
       } else {
-        this.id = Math.random().toString();
+        this.id = Math.trunc(Math.random() * 100).toString();
         products.push(this);
         fs.writeFile(p, JSON.stringify(products), (err) => {
           console.log(err);
@@ -78,7 +78,7 @@ module.exports = class Product {
     //to filter the route by the ID of the product
     getProductsFromFile((products) => {
       const product = products.find((p) => p.id === id); //to find the object-ID
-      // cb(product);
+      cb(product);
     });
   }
 };

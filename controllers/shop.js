@@ -9,10 +9,17 @@ exports.getCart = (req, res, next) => {
 };
 
 exports.postCart = (req, res, next) => {
+  console.log(req.body);
   const prodId = req.body.productId; //link between the view file and the midleware
+  console.log(prodId);
   Product.findById(prodId, (product) => {
     // const product = products.findById(prodId);
-    Cart.addProduct(prodId, product.price);
+    if (product !== undefined) {
+      console.log(product.price);
+      Cart.deleteProduct(prodId, product.price);
+    } else {
+      console.log("product is undefined 1");
+    }
   });
   // console.log(prodId); //print the productID
   res.redirect("/shop-cart");

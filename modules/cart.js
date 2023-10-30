@@ -46,13 +46,25 @@ module.exports = class Cart {
         console.log("this is a error in tht deleteProduct methode :", error);
         return; //do nothing
       }
-      const updatedCart = { ...fileContent };
-      const product = updatedCart.products.find((prod) => prod.id === id);
-      const productQty = product.qty;
-      updatedCart.products = updatedCart.product.filter(
-        (prod) => prod.id !== id
-      ); //this line of code is creating a new array of products that does not include the product with the specified ID
-      updatedCart.totalPrice = cart.totalPrice - productPrice * productQty;
+      const cart = JSON.parse(fileContent);
+
+      const updatedCart = cart;
+      console.log(updatedCart);
+      const productInd1 = updatedCart.products.findIndex(
+        (prod) => prod.id === id
+      );
+      const product = updatedCart.products[productInd1];
+      let productQty = product.qty;
+      if (productQty === 1) {
+        updatedCart.products = updatedCart.products.filter(
+          (prod) => prod.id !== id
+        ); //this line of code is creating a new array of products that does not include the product with the specified ID
+      } else {
+        productQty = productQty - 1;
+        product.qty = productQty;
+      }
+
+      updatedCart.totalPrice = cart.totalPrice - productPrice;
       fs.writeFile(p, JSON.stringify(updatedCart), (err) => {
         console.log(err);
       });
