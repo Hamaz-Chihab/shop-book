@@ -2,21 +2,38 @@ const Product = require("../modules/product"); //importing the class from module
 const Cart = require("../modules/cart"); //importport the cart module
 //cart middleware in shop route
 exports.getCart = (req, res, next) => {
-  res.render("shop/cart", {
-    titlePage: "shop-cart",
-    path: "/shop-cart", //the views file path
+  Cart.getCart((cart) => {
+    Product.fetchAll((products) => {
+      const cartProducts = [];
+      for (let product of products) {
+        const cartProductData = cart.products.find(
+          (prod) => prod.id === product.id
+        );
+        console.log("this is the getCart :", cartProductData);
+        console.log("this is the getCart :", cart.product);
+
+        if (cartProductData) {
+          cartProducts.push({ producData: product, qty: cartProductData.qty });
+        }
+      }
+      res.render("shop/cart", {
+        titlePage: "shop-cart",
+        path: "/shop-cart", //the views file path
+        products: cartProducts,
+      });
+    });
   });
 };
 
 exports.postCart = (req, res, next) => {
-  console.log(req.body);
+  // console.log(req.body);
   const prodId = req.body.productId; //link between the view file and the midleware
   console.log(prodId);
   Product.findById(prodId, (product) => {
     // const product = products.findById(prodId);
     if (product !== undefined) {
-      console.log(product.price);
-      Cart.deleteProduct(prodId, product.price);
+      // console.log(product.price);
+      Cart.addProduct(prodId, product.price); //here where chang from add to card to delete from cart
     } else {
       console.log("product is undefined 1");
     }
@@ -24,6 +41,25 @@ exports.postCart = (req, res, next) => {
   // console.log(prodId); //print the productID
   res.redirect("/shop-cart");
 };
+
+//delete from cart
+// exports.postCart = (req, res, next) => {
+//   console.log(req.body);
+//   const prodId = req.body.productId; //link between the view file and the midleware
+//   console.log(prodId);
+//   Product.findById(prodId, (product) => {
+//     // const product = products.findById(prodId);
+//     if (product !== undefined) {
+//       console.log(product.price);
+//       Cart.deleteProduct(prodId, product.price); //here where chang from add to card to delete from cart
+//     } else {
+//       console.log("product is undefined 1");
+//     }
+//   });
+//   // console.log(prodId); //print the productID
+//   res.redirect("/shop-cart");
+// };
+
 //checkout middleware in shop route
 exports.getCheckout = (req, res, next) => {
   res.render("shop/checkout", {

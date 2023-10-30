@@ -1,4 +1,5 @@
 const bodyParser = require("body-parser");
+const Product = require("../modules/product"); //importing the class from module file
 
 exports.getAddProduct = (req, res, next) => {
   res.render("admin/edit-product", {
@@ -8,7 +9,6 @@ exports.getAddProduct = (req, res, next) => {
   });
 };
 
-const Product = require("../modules/product"); //importing the class from module file
 exports.postAddProduct = (req, res, next) => {
   const title = req.body.title; //the name attribut in the ejs file
   const imageUrl = req.body.imageUrl; //the name attribut in the ejs file
@@ -18,16 +18,6 @@ exports.postAddProduct = (req, res, next) => {
   product.save(); //save(push) the objetc in the array
   res.redirect("/");
 };
-
-
-
-
-
-
-
-
-
-
 
 exports.postEditProduct = (req, res, next) => {
   const prodId = req.body.productId; //the name of the hidden input Id witch can not be updated
@@ -46,12 +36,6 @@ exports.postEditProduct = (req, res, next) => {
   updatedProduct.save(); //the old values would overided by the updated values
   res.redirect("/admin/products");
 };
-
-
-
-
-
-
 
 exports.getEditProduct = (req, res, next) => {
   const editMode = req.query.edit; //have "true" id the query param exist
@@ -78,20 +62,12 @@ exports.getEditProduct = (req, res, next) => {
   });
 };
 
-
-
-
-
-
 exports.postDeleteProduct = (req, res, next) => {
   const prodId = req.body.productId;
-  Product.deleteById(prodId); //delete frome the product module
+  const product = Product.findById(prodId);
+  product.deleteById(prodId); //delete frome the product module
   res.redirect("/shop-cart");
 };
-
-
-
-
 
 exports.getProducts = (req, res, next) => {
   Product.fetchAll((product) => {

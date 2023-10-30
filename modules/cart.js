@@ -1,4 +1,4 @@
-const { error } = require("console");
+const { error, log } = require("console");
 const fs = require("fs");
 const path = require("path");
 const { stringify } = require("querystring");
@@ -40,34 +40,65 @@ module.exports = class Cart {
       });
     });
   }
+
   static deleteProduct(id, productPrice) {
     fs.readFile(p, (err, fileContent) => {
       if (err) {
         console.log("this is a error in tht deleteProduct methode :", error);
         return; //do nothing
       }
-      const cart = JSON.parse(fileContent);
+      const updatedCart = JSON.parse(fileContent);
+      // const  = { ...JSON.parse(fileContent) };
+      console.log("this is the updatedProduct object : ", updatedCart);
 
-      const updatedCart = cart;
-      console.log(updatedCart);
+      // const product = updatedCart.product.find((prod) => prod.id === id);
       const productInd1 = updatedCart.products.findIndex(
         (prod) => prod.id === id
       );
       const product = updatedCart.products[productInd1];
-      let productQty = product.qty;
-      if (productQty === 1) {
-        updatedCart.products = updatedCart.products.filter(
-          (prod) => prod.id !== id
-        ); //this line of code is creating a new array of products that does not include the product with the specified ID
-      } else {
-        productQty = productQty - 1;
-        product.qty = productQty;
-      }
-
-      updatedCart.totalPrice = cart.totalPrice - productPrice;
+      console.log("this is the product object : ", product);
+      const productQty = product.qty;
+      updatedCart.products = updatedCart.products.filter(
+        (prod) => prod.id !== id
+      );
+      updatedCart.totalPrice =
+        updatedCart.totalPrice - productPrice * productQty;
       fs.writeFile(p, JSON.stringify(updatedCart), (err) => {
-        console.log(err);
+        console.log("error in the daleteProduct in Cart module : ", err);
       });
+      //   const cart = JSON.parse(fileContent);
+
+      //   const updatedCart = cart;
+      //   // console.log(updatedCart);//to verifier if the cart obj has been copied
+      //   const productInd1 = updatedCart.products.findIndex(
+      //     (prod) => prod.id === id
+      //   );
+      //   const product = updatedCart.products[productInd1];
+      //   let productQty = product.qty;
+      //   if (productQty === 1) {
+      //     updatedCart.products = updatedCart.products.filter(
+      //       (prod) => prod.id !== id
+      //     ); //this line of code is creating a new array of products that does not include the product with the specified ID
+      //   } else {
+      //     productQty = productQty - 1;
+      //     product.qty = productQty;
+      //   }
+
+      //   updatedCart.totalPrice = cart.totalPrice - productPrice;
+      //   fs.writeFile(p, JSON.stringify(updatedCart), (err) => {
+      //     console.log(err);
+      //   });
+    });
+  }
+  static getCart(cb) {
+    fs.readFile(p, (err, fileContent) => {
+      const cart = JSON.parse(fileContent);
+      if (err) {
+        console.log("there is en error in getCart in cart-module");
+        cb(null);
+      } else {
+        cb(cart);
+      }
     });
   }
 };

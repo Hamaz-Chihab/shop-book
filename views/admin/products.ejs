@@ -62,7 +62,8 @@
                                 <a href="/admin/edit-product/<%=product.id%>?edit=true">Edit</a>
                                 <form action="/shop-cart" method="post">
                                     <input type="hidden" value="<%=product.id%>" name="productId">
-                                    <button class="btn" type="submit">Delete</button>
+                                    <button  class="btn" type="submit" href="/admin/delete-product">Delete</button>
+
                                 </form>
                             </div>
                         <% }%>

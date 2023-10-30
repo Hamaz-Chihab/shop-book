@@ -29,6 +29,7 @@ module.exports = class Product {
     this.description = description;
     this.price = price;
   }
+
   //storing data in a files via the module
   save() {
     //want to stor product in the products array
@@ -57,6 +58,8 @@ module.exports = class Product {
     });
   }
 
+  //  deleting data in a files via the module
+
   static deleteById(id) {
     getProductsFromFile((products) => {
       const product = products.find((prod) => prod.id === id); //extract the product object from the array to have access to the price
@@ -68,6 +71,7 @@ module.exports = class Product {
       });
     });
   }
+
   //static :can call the method on the class and not for a external obj
   static fetchAll(cb) {
     getProductsFromFile(cb);
