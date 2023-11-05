@@ -15,8 +15,17 @@ exports.postAddProduct = (req, res, next) => {
   const price = req.body.price; //the name attribut in the ejs file
   const description = req.body.description; //the name attribut in the ejs file
   const product = new Product(null, title, imageUrl, description, price); //create a new product constractor passing all the attributs .
-  product.save(); //save(push) the objetc in the array
-  res.redirect("/");
+  product
+    .save()
+    .then(() => {
+      res.redirect("/");
+    })
+    .catch((err) => {
+      console.log(
+        "this is an error in the postAddProduct innAdmin controller : ",
+        err
+      );
+    }); //save(push) the objetc in the array
 };
 
 exports.postEditProduct = (req, res, next) => {
