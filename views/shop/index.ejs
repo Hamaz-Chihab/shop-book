@@ -1,23 +1,23 @@
-
-
-
         <%- include('../includes/head.ejs')%>
-    <link rel="stylesheet" href="/css/shop.css">
     <link rel="stylesheet" href="/css/product-list.css">
 
     </head>
     <%- include('../includes/navigation.ejs')%>
 
         <body>
-            <h1>this is the index in the Shop Route PAGE </h1>
+            <h1>This is the index in the Shop Route PAGE </h1>
             <% if(prods.length> 0 ){%>
                 <section class="product">
                     <%for(let product of prods) {%>
-                        <div class="product_card">                                
-                            <img src= <%=product.imageUrl %> alt="">
+                        <div class="product_card">    
                             <h2>
                                 <%= product.title %>
                             </h2>
+                            <div class="img_div">
+                                <img src= <%=product.imageUrl %> alt="">
+                            </div>                            
+                            
+                            
                             <p class="price">
                                 <%= product.price %> $
                             </p>
@@ -26,12 +26,12 @@
                             </p>
                         
                             <!-- <a href="/products/">Details</a> -->
-                          <div>
+                          <div class="links">
                             <a href="/products/<% product.id %>">Details</a>
                             <%- include('../includes/add-to-cart.ejs',{product : product})%>
 
                           </div>
-                            
+                        </div>  
                         <% }%>
                 </section>
                 <%} else {%>

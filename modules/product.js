@@ -63,7 +63,9 @@ module.exports = class Product {
   static deleteById(id) {
     getProductsFromFile((products) => {
       const product = products.find((prod) => prod.id === id); //extract the product object from the array to have access to the price
+      console.log("inter the deleteById succesfully", product);
       const updatedProducts = products.filter((prod) => prod.id !== id); //This line creates a new array, updatedProducts, which contains all products from the original list except for the one with the ID specified.
+      console.log("inter the deleteById succesfully", updatedProducts);
       fs.writeFile(p, JSON.stringify(updatedProducts), (err) => {
         if (!err) {
           cart.deleteProduct(id, product.price);

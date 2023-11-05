@@ -1,3 +1,13 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+html {
+  box-sizing: inherit;
+}
+
 body {
   font-family: Arial, Helvetica, sans-serif;
   background-color: #f8f8f8;
@@ -7,28 +17,42 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  overflow-x: hidden;
   width: 100%;
-  /* min-height: 100vh; */
 }
 
 .product {
+  text-align: center;
+  display: flex;
+  width: 100%;
+  background-color: #f8f8f8;
+  text-align: center;
+  margin: 1rem 0rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 1rem;
+  row-gap: 1rem;
+}
+.product_card {
+  flex-basis: 31%;
+  display: flex;
   background-color: #fff;
+  flex-direction: column;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  transition: transform 0.3s ease;
-  display: flex;
-  justify-content: space-between;
+  padding: 1rem;
+}
+
+.img_div {
   width: 100%;
-  flex-wrap: wrap;
+  height: 10rem;
+  overflow: hidden;
 }
-.product_card {
-  flex-basis: 48%;
-}
-.product:hover {
-  transform: scale(1.03);
+
+.links {
+  display: flex;
+  column-gap: 1rem;
+  justify-content: center;
 }
 
 .product img {
@@ -36,11 +60,16 @@ body {
   height: auto;
   border-radius: 8px;
   margin-bottom: 10px;
+  object-fit: cover;
+  object-position: center;
 }
 
 .product h2 {
   font-size: 20px;
   margin: 10px 0;
+  margin-top: 1rem;
+  color: #333;
+  text-align: center;
 }
 
 .product p.price {
@@ -52,6 +81,8 @@ body {
 .product p {
   font-size: 16px;
   margin: 10px 0;
+  color: #777;
+  margin-bottom: 1.5rem;
 }
 
 .product a {
@@ -69,9 +100,9 @@ body {
 }
 
 form {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
 }
 
 .product form button {
@@ -95,13 +126,55 @@ form {
   margin: 20px auto;
 }
 
-h1 {
-  font-size: 28px;
+.end {
   text-align: center;
   margin: 20px 0;
 }
 
-.end {
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
   text-align: center;
-  margin: 20px 0;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  /* background-color: #444; */
+  text-align: center;
+}
+
+nav li {
+  display: inline-block;
+  margin: 0 1rem;
+}
+
+nav a {
+  text-decoration: none;
+  color: #fff;
+  padding: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: #ff6600;
+}
+
+footer {
+  text-align: center;
+  padding: 1.5rem 0;
+  background-color: #333;
+  color: #fff;
+}
+
+footer p {
+  margin: 0;
 }

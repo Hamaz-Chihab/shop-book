@@ -49,14 +49,28 @@ module.exports = class Cart {
       }
       const updatedCart = JSON.parse(fileContent);
       // const  = { ...JSON.parse(fileContent) };
-      console.log("this is the updatedProduct object : ", updatedCart);
+      // console.log(
+      //   "this is the updatedProduct object from deleteProduct: ",
+      //   updatedCart
+      // );
 
       // const product = updatedCart.product.find((prod) => prod.id === id);
       const productInd1 = updatedCart.products.findIndex(
         (prod) => prod.id === id
       );
+      if (!productInd1) {
+        console.log(
+          "just notice that :this product does not exist in the product cart "
+        );
+      }
       const product = updatedCart.products[productInd1];
-      console.log("this is the product object : ", product);
+      if (!product) {
+        return;
+      }
+      // console.log(
+      //   "this is the product we have delete from the cart : ",
+      //   product
+      // );
       const productQty = product.qty;
       updatedCart.products = updatedCart.products.filter(
         (prod) => prod.id !== id
@@ -92,7 +106,7 @@ module.exports = class Cart {
   }
   static getCart(cb) {
     fs.readFile(p, (err, fileContent) => {
-      const cart = JSON.parse(fileContent);
+      const cart = { ...JSON.parse(fileContent) };
       if (err) {
         console.log("there is en error in getCart in cart-module");
         cb(null);

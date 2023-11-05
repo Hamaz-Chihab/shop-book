@@ -64,9 +64,12 @@ exports.getEditProduct = (req, res, next) => {
 
 exports.postDeleteProduct = (req, res, next) => {
   const prodId = req.body.productId;
-  const product = Product.findById(prodId);
-  product.deleteById(prodId); //delete frome the product module
-  res.redirect("/shop-cart");
+  console.log("this is the prodId  from psostDeleteProduct :", prodId);
+  // Product.findById(prodId, (product) => {
+  //   console.log("this is the product from postDeleteProduct :", product);
+  // });
+  Product.deleteById(prodId);
+  res.redirect("/admin/products"); //delete frome the product module
 };
 
 exports.getProducts = (req, res, next) => {

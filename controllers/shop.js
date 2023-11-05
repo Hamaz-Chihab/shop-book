@@ -4,14 +4,13 @@ const Cart = require("../modules/cart"); //importport the cart module
 exports.getCart = (req, res, next) => {
   Cart.getCart((cart) => {
     Product.fetchAll((products) => {
-      const cartProducts = [];
+      let cartProducts = [];
+
+      console.log("this is the getCart :", cart.products);
       for (let product of products) {
         const cartProductData = cart.products.find(
           (prod) => prod.id === product.id
         );
-        console.log("this is the getCart :", cartProductData);
-        console.log("this is the getCart :", cart.product);
-
         if (cartProductData) {
           cartProducts.push({ producData: product, qty: cartProductData.qty });
         }
