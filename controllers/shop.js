@@ -104,33 +104,34 @@ exports.getOrders = (req, res, next) => {
 };
 
 //product detail middleware in shop route
+// exports.getProduct = (req, res, next) => {
+//   const prodId = req.params.productId; //the productId is a quiry param in the shop-route
+//   Product.findById(prodId, (product) => {
+//     //methode to
+//     // console.log(product);
+//     res.render("shop/product-detail.ejs", {
+//       product: product,
+//       titlePage: product.title,
+//       path: "/shop-products",
+//     });
+//   });
+//   console.log(prodId);
+// };
+//the get Product using DB :
 exports.getProduct = (req, res, next) => {
-  const prodId = req.params.productId; //the productId is a quiry param in the shop-route
-  Product.findById(prodId, (product) => {
-    //methode to
-    // console.log(product);
-    res.render("shop/product-detail.ejs", {
-      product: product,
-      titlePage: product.title,
-      path: "/shop-products",
+  const prodId = req.params.productId;
+  Product.findById(prodId)
+    .then(([product]) => {
+      res.render("shop/product-detail.ejs", {
+        product: product[0],
+        titlePage: product.title,
+        path: "/shop-products",
+      });
+    })
+    .catch((err) => {
+      console.log("this is an error from shop controller getProducts :", err);
     });
-  });
-  //   console.log(prodId);
-};  
-//the get Product using DB : 
-exports.getProduct = (req, res, next) => {
-  const prodId = req.params.productId; //the productId is a quiry param in the shop-route
-  Product.findById(prodId, (product) => {
-    //methode to
-    // console.log(product);
-    res.render("shop/product-detail.ejs", {
-      product: product,
-      titlePage: product.title,
-      path: "/shop-products",
-    });
-  });
-  //   console.log(prodId);
-}; 
+};
 
 //Products middleware of shop route :
 // exports.getProducts = (req, res, next) => {
