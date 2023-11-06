@@ -80,19 +80,33 @@ exports.getCheckout = (req, res, next) => {
 // };
 //working with the MYSQL Data Base :
 exports.getIndex = (req, res, next) => {
-  Product.fetchAll()
-    .then(([rows, fieldData]) => {
-      console.log("this is the fielData", fieldData); //the colone properties of DB
-      console.log("this is the Rows :", rows); //first row of the DB
+  Product.findAll()
+    .then((products) => {
       res.render("shop/index", {
-        prods: rows,
+        prods: products,
         titlePage: "shop-index",
         path: "/shop-index",
       });
     })
-    .catch((err) =>
-      console.log("this is an error in the shop controller getIndex :/n", err)
-    );
+    .catch((err) => {
+      console.log(
+        "this is a probleme from the GETIndex in shop controller :",
+        err
+      );
+    }); //product here is a SQL module
+  // Product.fetchAll()//product here is a JS module
+  //   .then(([rows, fieldData]) => {
+  //     console.log("this is the fielData", fieldData); //the colone properties of DB
+  //     console.log("this is the Rows :", rows); //first row of the DB
+  //     res.render("shop/index", {
+  //       prods: rows,
+  //       titlePage: "shop-index",
+  //       path: "/shop-index",
+  //     });
+  //   })
+  //   .catch((err) =>
+  //     console.log("this is an error in the shop controller getIndex :/n", err)
+  //   );
 };
 
 //orders middleware in shop route
@@ -146,17 +160,32 @@ exports.getProduct = (req, res, next) => {
 // };
 //working with MYSQL :
 exports.getProducts = (req, res, next) => {
-  Product.fetchAll()
-    .then(([rows, fieldData]) => {
+  Product.findAll()
+    .then((products) => {
       res.render("shop/product-list", {
-        prods: rows, //prods is used for shop-route and products is in the server
+        prods: products, //prods is used for shop-route and products is in the server
         titlePage: "All-Products",
         path: "/shop-products",
       });
     })
     .catch((err) => {
-      console.log("this is an error from shop controller getProducts :", err);
+      console.log(
+        "this is a probleme from the GETProducts in shop controller :",
+        err
+      );
     });
+  //Product here is a JS module
+  // Product.fetchAll()
+  //   .then(([rows, fieldData]) => {
+  //     res.render("shop/product-list", {
+  //       prods: rows, //prods is used for shop-route and products is in the server
+  //       titlePage: "All-Products",
+  //       path: "/shop-products",
+  //     });
+  //   })
+  //   .catch((err) => {
+  //     console.log("this is an error from shop controller getProducts :", err);
+  //   });
   //rendering the shop template + Data object used in shop.pug});//to retrieve all the products in products-constant but the fetchll function does not return anny thing 'error'
 };
 // exports.products = Product;

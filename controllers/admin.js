@@ -14,19 +14,31 @@ exports.postAddProduct = (req, res, next) => {
   const imageUrl = req.body.imageUrl; //the name attribut in the ejs file
   const price = req.body.price; //the name attribut in the ejs file
   const description = req.body.description; //the name attribut in the ejs file
-  const product = new Product(null, title, imageUrl, description, price); //create a new product constractor passing all the attributs .
-  product
-    .save()
-    .then(() => {
+  // const product = new Product(null, title, imageUrl, description, price); //create a new product constractor passing all the attributs .
+  // product
+  //   .save()
+  //
+  Product.create({
+    title: title,
+    price: price,
+    imageUrl: imageUrl,
+    description: description,
+  })
+    .then((result) => {
+      console.log(
+        "this is the result from postAddProduct in Admin controller : ",
+        result
+      );
+      console.log("the product has been created succefuly");
       res.redirect("/");
     })
     .catch((err) => {
       console.log(
-        "this is an error in the postAddProduct innAdmin controller : ",
+        "this is an error in the postAddProduct in Admin controller : ",
         err
       );
-    }); //save(push) the objetc in the array
-};
+    });
+}; //save(push) the objetc in the array
 
 exports.postEditProduct = (req, res, next) => {
   const prodId = req.body.productId; //the name of the hidden input Id witch can not be updated

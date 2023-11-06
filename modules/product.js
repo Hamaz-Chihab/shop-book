@@ -89,39 +89,64 @@
 //   }
 // };
 
-// this version working with MYSQL BATABASE :
-const db = require("../util/dataBase");
-const cart = require("./cart"); //extrqct the cart  object to use delete-methode
-module.exports = class Product {
-  //do not forget the capital letter
-  constructor(id, title, imageUrl, description, price) {
-    //to have store the product in an array of products using the constractor and fetch it
-    this.id = id;
-    this.title = title;
-    this.imageUrl = imageUrl;
-    this.description = description;
-    this.price = price;
-  }
+const Sequelize = require("sequelize");
+const sequelize = require("../util/dataBase");
+//creating a Product module an table in SQL DATABASE :
+const Product = sequelize.define("product", {
+  id: {
+    type: Sequelize.INTEGER,
+    autoIncrement: true,
+    allowNull: false,
+    primaryKey: true,
+  },
+  title: Sequelize.STRING,
+  price: {
+    type: Sequelize.DOUBLE,
+    allowNull: false,
+  },
+  imageUrl: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  description: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+});
+module.exports = Product;
+// // this version working with MYSQL BATABASE :
+// const db = require("../util/dataBase");
+// const cart = require("./cart"); //extrqct the cart  object to use delete-methode
+// module.exports = class Product {
+//   //do not forget the capital letter
+//   constructor(id, title, imageUrl, description, price) {
+//     //to have store the product in an array of products using the constractor and fetch it
+//     this.id = id;
+//     this.title = title;
+//     this.imageUrl = imageUrl;
+//     this.description = description;
+//     this.price = price;
+//   }
 
-  //storing data in a files via the module
-  save() {
-    return db.execute(
-      "INSERT INTO products (title ,price ,description ,imageUrl) VALUES(?,?,?,?)",
-      [this.title, this.price, this.description, this.imageUrl]
-    );
-  }
+//   //storing data in a files via the module
+//   save() {
+//     return db.execute(
+//       "INSERT INTO products (title ,price ,description ,imageUrl) VALUES(?,?,?,?)",
+//       [this.title, this.price, this.description, this.imageUrl]
+//     );
+//   }
 
-  //  deleting data in a files via the module
+//   //  deleting data in a files via the module
 
-  static deleteById(id) {}
+//   static deleteById(id) {}
 
-  //static :can call the method on the class and not for a external obj
-  static fetchAll() {
-    return db.execute("SELECT * FROM products");
-  }
+//   //static :can call the method on the class and not for a external obj
+//   static fetchAll() {
+//     return db.execute("SELECT * FROM products");
+//   }
 
-  //to get the /shop-product route (product-detail)
-  static findById() {
-    return db.execute("SELECT * FROM products WHERE products.id = ?", [id]); //the ? is like the /n referes to [id]
-  }
-};
+//   //to get the /shop-product route (product-detail)
+//   static findById() {
+//     return db.execute("SELECT * FROM products WHERE products.id = ?", [id]); //the ? is like the /n referes to [id]
+//   }
+// };

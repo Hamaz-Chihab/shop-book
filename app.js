@@ -4,9 +4,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
-
-const db = require("./util/dataBase");
-//tesy=ting code for connecting the data base : 
+//tesy=ting code for connecting the data base :
+// const db = require("./util/dataBase");
 // db.execute("SELECT * FROM products")
 //   .then((result) => {
 //     console.log("this is the result :/n", result[0]);
@@ -38,5 +37,18 @@ app.get("/", function (req, res, next) {
   res.status(404).render("error", { title: "error page" });
 });
 
-app.listen(3000);
-module.exports = router;
+// app.listen(3000);
+// module.exports = router;
+
+//the project with the Data Base :
+
+const sequelize = require("./util/dataBase");
+sequelize //a table in DataBase will created according to the module file .(atable named Products "howa product bsh auto ydiro products")
+  .sync()
+  .then((result) => {
+    // console.log("this is the product result : ");
+    app.listen(3000);
+  })
+  .catch((err) => {
+    console.log("this is error from create DB Table : ", err);
+  });
