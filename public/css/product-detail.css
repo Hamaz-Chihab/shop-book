@@ -1,0 +1,52 @@
+/* Styling for the main container */
+.centred {
+  text-align: center;
+  margin: 20px;
+}
+
+/* Styling for the page title */
+h1 {
+  font-size: 28px;
+  color: #333;
+  margin: 10px 0;
+}
+
+/* Styling for the product title */
+h1:nth-of-type(2) {
+  font-size: 36px;
+  color: #333;
+  margin: 20px 0;
+}
+
+/* Styling for the horizontal line */
+hr {
+  width: 50%;
+  margin: 20px auto;
+  border: 1px solid #ddd;
+}
+
+/* Styling for the product image */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Styling for the product price */
+h2 {
+  font-size: 24px;
+  color: #007bff;
+  margin: 20px 0;
+}
+
+/* Styling for the product description */
+p {
+  font-size: 16px;
+  color: #555;
+  margin: 10px 0;
+}
+
+/* Styling for the add to cart section */
+.add-to-cart {
+  margin-top: 20px;
+  text-align: center;
+}

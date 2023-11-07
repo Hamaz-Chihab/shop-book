@@ -1,5 +1,7 @@
 <%- include('../includes/head.ejs')%>
-<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="/css/product-detail.css">
+
 
 </head>
 
@@ -7,6 +9,7 @@
     <%- include('../includes/navigation.ejs')%>
     <%-include('../includes/end.ejs')%> 
     <main class="centred">   
+        <h1>this is product detail Page </h1>
         <h1>                                
             <%= product.title %>
         </h1>
@@ -16,6 +19,5 @@
         </div>
         <h2> <%= product.price %> $</h2>
         <p><%= product.description %></p>
-        
         <%- include('../includes/add-to-cart.ejs',{product : product})%>
     </main>

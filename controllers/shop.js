@@ -3,42 +3,62 @@ const Cart = require("../modules/cart"); //importport the cart module
 //cart middleware in shop route
 exports.getCart = (req, res, next) => {
   Cart.getCart((cart) => {
-    Product.fetchAll((products) => {
-      let cartProducts = [];
+    Product.fetchAll()
+      .then((products) => {
+        let cartProducts = [];
 
-      console.log("this is the getCart :", cart.products);
-      for (let product of products) {
-        const cartProductData = cart.products.find(
-          (prod) => prod.id === product.id
-        );
-        if (cartProductData) {
-          cartProducts.push({ producData: product, qty: cartProductData.qty });
+        console.log("this is the getCart :", cart.products);
+        for (let product of products) {
+          const cartProductData = cart.products.find(
+            (prod) => prod.id === product.id
+          );
+          if (cartProductData) {
+            cartProducts.push({
+              producData: product,
+              qty: cartProductData.qty,
+            });
+          }
         }
-      }
-      res.render("shop/cart", {
-        titlePage: "shop-cart",
-        path: "/shop-cart", //the views file path
-        products: cartProducts,
+        res.render("shop/cart", {
+          titlePage: "shop-cart",
+          path: "/shop-cart", //the views file path
+          products: cartProducts,
+        });
+      })
+      .catch((err) => {
+        console.log("this is an error from getCart in shop controller :", err);
       });
-    });
   });
 };
 
 exports.postCart = (req, res, next) => {
   // console.log(req.body);
   const prodId = req.body.productId; //link between the view file and the midleware
-  console.log(prodId);
-  Product.findById(prodId, (product) => {
-    // const product = products.findById(prodId);
-    if (product !== undefined) {
-      // console.log(product.price);
-      Cart.addProduct(prodId, product.price); //here where chang from add to card to delete from cart
-    } else {
-      console.log("product is undefined 1");
-    }
-  });
+  // console.log(prodId);
+  Product.findAll({ where: { id: prodId } })
+    .then((products) => {
+      if (products[0] !== undefined) {
+        // console.log(product.price);
+        Cart.addProduct(prodId, products[0].price); //here where chang from add to card to delete from cart
+      } else {
+        console.log("product is undefined 1");
+      }
+      res.redirect("/shop-cart");
+    })
+    .catch((err) => {
+      console.log("this is an error in PostCart :", err);
+    });
+  // Product.findById(prodId, (product) => {
+  //   // const product = products.findById(prodId);
+  //   if (product !== undefined) {
+  //     // console.log(product.price);
+  //     Cart.addProduct(prodId, product.price); //here where chang from add to card to delete from cart
+  //   } else {
+  //     console.log("product is undefined 1");
+  //   }
+  // });
   // console.log(prodId); //print the productID
-  res.redirect("/shop-cart");
+  // res.redirect("/shop-cart");
 };
 
 //delete from cart
@@ -134,12 +154,13 @@ exports.getOrders = (req, res, next) => {
 //the get Product using DB :
 exports.getProduct = (req, res, next) => {
   const prodId = req.params.productId;
-  Product.findById(prodId)
-    .then(([product]) => {
+  // console.log("this is the ID ", prodId);
+  Product.findAll({ where: { id: prodId } }) //this function use the where query module to return an array named products in (.then) of objects according to the ID
+    .then((products) => {
       res.render("shop/product-detail.ejs", {
-        product: product[0],
-        titlePage: product.title,
-        path: "/shop-products",
+        product: products[0],
+        titlePage: products[0].title,
+        path: "/shop-product/:productId",
       });
     })
     .catch((err) => {

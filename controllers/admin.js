@@ -25,12 +25,12 @@ exports.postAddProduct = (req, res, next) => {
     description: description,
   })
     .then((result) => {
-      console.log(
-        "this is the result from postAddProduct in Admin controller : ",
-        result
-      );
+      // console.log(
+      //   "this is the result from postAddProduct in Admin controller : ",
+      //   result
+      // );
       console.log("the product has been created succefuly");
-      res.redirect("/");
+      res.redirect("/admin/products");
     })
     .catch((err) => {
       console.log(
@@ -41,65 +41,99 @@ exports.postAddProduct = (req, res, next) => {
 }; //save(push) the objetc in the array
 
 exports.postEditProduct = (req, res, next) => {
+  //recive the Data from the request + Store it  :
+  //the order of the attribut is important : id ,title, imageUrl, description ,price
   const prodId = req.body.productId; //the name of the hidden input Id witch can not be updated
   const updatedTitle = req.body.title;
   const updatedPrice = req.body.price;
   const updatedImageUrl = req.body.imageUrl;
   const updatedDesc = req.body.description;
-  //the order of the attribut is important : id ,title, imageUrl, description ,price
-  const updatedProduct = new Product(
-    prodId,
-    updatedTitle,
-    updatedImageUrl,
-    updatedDesc,
-    updatedPrice
-  ); //create a new product object to save it as updated Product
-  updatedProduct.save(); //the old values would overided by the updated values
-  res.redirect("/admin/products");
+  Product.findAll({ where: { id: prodId } }) //will return an array montioned in .then
+    .then((products) => {
+      //save the changes localy in a JS object and not in DB directly :
+      products[0].title = updatedTitle;
+      products[0].price = updatedPrice;
+      products[0].imageUrl = updatedImageUrl;
+      products[0].description = updatedDesc;
+      return products[0].save(); //save in DB
+      // res.redirect("/admin/products");
+    })
+    .then((result) => {
+      console.log("the product has been UPDATED SUCCEFULY");
+      res.redirect("/admin/products");
+    })
+    .catch((err) =>
+      console.log(
+        "this is an err in the postEditProduct in admin controller : ",
+        err
+      )
+    );
 };
 
 exports.getEditProduct = (req, res, next) => {
-  const editMode = req.query.edit; //have "true" id the query param exist
+  const editMode = req.query.edit; //we have recived in the request have "true" the query param exist
   // console.log(editMode);
   // editMode = true;
   if (!editMode) {
-    console.log("this is an error in params ??");
-    console.log(editMode);
+    // console.log("this is an error in params ??");
+    // console.log(editMode);
     return res.redirect("/");
   }
-  const prodId = req.params.productID; //to have the access to the productID
-  Product.findById(prodId, (product) => {
-    if (!prodId) {
-      //theck if the product existe
-      console.log("this is an error in the product existing ??");
-      return res.redirect("/");
-    }
-    res.render("admin/edit-product", {
-      titlePage: "Edit-product",
-      path: "admin/edit-product",
-      editing: editMode, //verifier si le produit exsist ??
-      product: product,
+  const prodId = req.params.productID; //have recived by the request to have the access to the productID
+  Product.findAll({ where: { id: prodId } })
+    .then((products) => {
+      if (!prodId) {
+        //theck if the product existe
+        console.log("this is an error in the product existing ??");
+        return res.redirect("/");
+      }
+      res.render("admin/edit-product", {
+        titlePage: "Edit-product",
+        path: "admin/edit-product",
+        editing: editMode, //verifier si le produit exsist ??
+        product: products[0],
+      });
+    })
+    .catch((err) => {
+      console.log(
+        "this is an error in GetEditProduct in admin controller :",
+        err
+      );
     });
-  });
 };
 
 exports.postDeleteProduct = (req, res, next) => {
   const prodId = req.body.productId;
-  console.log("this is the prodId  from psostDeleteProduct :", prodId);
-  // Product.findById(prodId, (product) => {
-  //   console.log("this is the product from postDeleteProduct :", product);
-  // });
-  Product.deleteById(prodId);
-  res.redirect("/admin/products"); //delete frome the product module
+  Product.findAll({ where: { id: prodId } }) //find the product to delete
+    .then((products) => {
+      products[0].destroy(); //delete from DB
+    })
+    .then((result) => {
+      console.log("Prosuct Has been deleted Succefuly ");
+      res.redirect("/admin/products");
+    })
+    .catch((err) =>
+      console.log(
+        "this is an error in postDeleteProduct in admin Controller :",
+        err
+      )
+    );
 };
 
 exports.getProducts = (req, res, next) => {
-  Product.fetchAll((product) => {
-    res.render("admin/products", {
-      //the ejs file to render it
-      prods: product, //prods is used for shop-route and products is in the server
-      titlePage: "admin-product",
-      path: "/products", //the path of the porte opened
+  Product.findAll() //it doesn't return an array
+    .then((products) => {
+      res.render("admin/products", {
+        //the ejs file to render it
+        prods: products, //prods is used for shop-route and products is in the server
+        titlePage: "admin-product",
+        path: "/products", //the path of the porte opened
+      });
+    })
+    .catch((err) => {
+      console.log(
+        "this is an error from GetProducts in admin controller : ",
+        err
+      );
     });
-  });
 };
