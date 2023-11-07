@@ -43,8 +43,13 @@ app.get("/", function (req, res, next) {
 //the project with the Data Base :
 
 const sequelize = require("./util/dataBase");
+const Product = require("./modules/product.js");
+const User = require("./modules/user.js");
+
+Product.belongsTo(User, { constraints: true, onDelete: "CASCADE" }); //the 'onDelete :'CASCADE''mean that if a User is deleted the product related to will also deleted
+User.hasMany(Product);
 sequelize //a table in DataBase will created according to the module file .(atable named Products "howa product bsh auto ydiro products")
-  .sync()
+  .sync({ force: true })
   .then((result) => {
     // console.log("this is the product result : ");
     app.listen(3000);
