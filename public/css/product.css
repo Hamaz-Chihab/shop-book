@@ -20,7 +20,7 @@
     border-radius: 2px;
 }
 
-button {
+/* button {
     font: inherit;
     border: 1px solid rgb(0, 0, 0);
     color: rgb(52, 0, 185);
@@ -33,4 +33,4 @@ button:hover,
 button:active {
     background-color: rgba(0, 159, 135, 0.632);
     color: white;
-}
+} */

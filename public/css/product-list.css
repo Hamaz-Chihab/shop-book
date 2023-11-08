@@ -85,7 +85,7 @@ body {
   margin-bottom: 1.5rem;
 }
 
-.product a {
+/* .product a {
   display: inline-block;
   text-decoration: none;
   background-color: #007bff;
@@ -93,7 +93,7 @@ body {
   padding: 10px 20px;
   border-radius: 5px;
   transition: background-color 0.3s;
-}
+} */
 
 .product a:hover {
   background-color: #0056b3;
@@ -105,7 +105,7 @@ form {
   gap: 1rem;
 }
 
-.product form button {
+/* .product form button {
   background-color: #28a745;
   color: #fff;
   padding: 10px 20px;
@@ -113,11 +113,11 @@ form {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
-}
+} */
 
-.product form button:hover {
+/* .product form button:hover {
   background-color: #1e7e34;
-}
+} */
 
 .product hr {
   border: none;

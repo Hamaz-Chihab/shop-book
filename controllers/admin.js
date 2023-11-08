@@ -1,6 +1,5 @@
 const bodyParser = require("body-parser");
 const Product = require("../modules/product"); //importing the class from module file
-
 exports.getAddProduct = (req, res, next) => {
   res.render("admin/edit-product", {
     pageTitle: "Add Product",
@@ -14,15 +13,12 @@ exports.postAddProduct = (req, res, next) => {
   const imageUrl = req.body.imageUrl; //the name attribut in the ejs file
   const price = req.body.price; //the name attribut in the ejs file
   const description = req.body.description; //the name attribut in the ejs file
-  // const product = new Product(null, title, imageUrl, description, price); //create a new product constractor passing all the attributs .
-  // product
-  //   .save()
-  //
   Product.create({
     title: title,
     price: price,
     imageUrl: imageUrl,
     description: description,
+    userId: req.user.id,
   })
     .then((result) => {
       // console.log(
