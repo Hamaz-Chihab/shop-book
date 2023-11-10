@@ -1,5 +1,7 @@
 const bodyParser = require("body-parser");
 const Product = require("../modules/product"); //importing the class from module file
+const User = require("../modules/user");
+
 exports.getAddProduct = (req, res, next) => {
   res.render("admin/edit-product", {
     pageTitle: "Add Product",
@@ -7,24 +9,20 @@ exports.getAddProduct = (req, res, next) => {
     editing: false,
   });
 };
-
 exports.postAddProduct = (req, res, next) => {
   const title = req.body.title; //the name attribut in the ejs file
   const imageUrl = req.body.imageUrl; //the name attribut in the ejs file
   const price = req.body.price; //the name attribut in the ejs file
   const description = req.body.description; //the name attribut in the ejs file
-  Product.create({
-    title: title,
-    price: price,
-    imageUrl: imageUrl,
-    description: description,
-    userId: req.user.id,
-  })
+  console.log("this is the user object   :", user);
+  req.user
+    .createProduct({
+      title: title,
+      price: price,
+      imageUrl: imageUrl,
+      description: description,
+    })
     .then((result) => {
-      // console.log(
-      //   "this is the result from postAddProduct in Admin controller : ",
-      //   result
-      // );
       console.log("the product has been created succefuly");
       res.redirect("/admin/products");
     })
@@ -45,6 +43,15 @@ exports.postEditProduct = (req, res, next) => {
   const updatedImageUrl = req.body.imageUrl;
   const updatedDesc = req.body.description;
   Product.findAll({ where: { id: prodId } }) //will return an array montioned in .then
+    // .then((products) => {
+    //   const product = products[0]
+    //   product.title = updatedTitle;
+    //   product.price = updatedPrice;
+    //   product.imageUrl = updatedImageUrl;
+    //   product.description = updatedDesc;
+    //   return product.save(); //save in DB
+    //   // res.redirect("/admin/products");
+    // })
     .then((products) => {
       //save the changes localy in a JS object and not in DB directly :
       products[0].title = updatedTitle;
