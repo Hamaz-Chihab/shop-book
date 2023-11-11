@@ -1,7 +1,5 @@
-const bodyParser = require("body-parser");
 const Product = require("../modules/product"); //importing the class from module file
-const User = require("../modules/user");
-
+const User = require("../modules/user.js");
 exports.getAddProduct = (req, res, next) => {
   res.render("admin/edit-product", {
     pageTitle: "Add Product",
@@ -14,15 +12,23 @@ exports.postAddProduct = (req, res, next) => {
   const imageUrl = req.body.imageUrl; //the name attribut in the ejs file
   const price = req.body.price; //the name attribut in the ejs file
   const description = req.body.description; //the name attribut in the ejs file
-  console.log("this is the user object   :", user);
-  req.User.createProduct({
-    title: title,
-      price: price,
-      imageUrl: imageUrl,
-      description: description,
+  // console.log("this is the user object   :", user);
+  User.findByPk(1)
+    .then((user) => {
+      if (user) {
+        Product.create({
+          title: title,
+          imageUrl: imageUrl,
+          price: price,
+          description: description,
+          userId: user.id,
+        });
+      }
+      console.log("the product has been created succefuly 1");
+      console.log("this is the user obj :", user);
     })
-    .then((result) => {
-      console.log("the product has been created succefuly");
+    .then(() => {
+      console.log("the product has been created succefuly 2");
       res.redirect("/admin/products");
     })
     .catch((err) => {
@@ -74,16 +80,13 @@ exports.postEditProduct = (req, res, next) => {
 
 exports.getEditProduct = (req, res, next) => {
   const editMode = req.query.edit; //we have recived in the request have "true" the query param exist
-  // console.log(editMode);
-  // editMode = true;
   if (!editMode) {
-    // console.log("this is an error in params ??");
-    // console.log(editMode);
     return res.redirect("/");
   }
   const prodId = req.params.productID; //have recived by the request to have the access to the productID
-  Product.findAll({ where: { id: prodId } })
-    .then((products) => {
+  // Product.findAll({ where: { id: prodId } })//cas 1
+  Product.findByPk(prodId)
+    .then((product) => {
       if (!prodId) {
         //theck if the product existe
         console.log("this is an error in the product existing ??");
@@ -93,7 +96,7 @@ exports.getEditProduct = (req, res, next) => {
         titlePage: "Edit-product",
         path: "admin/edit-product",
         editing: editMode, //verifier si le produit exsist ??
-        product: products[0],
+        product: product,
       });
     })
     .catch((err) => {
