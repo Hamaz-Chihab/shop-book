@@ -15,9 +15,8 @@ exports.postAddProduct = (req, res, next) => {
   const price = req.body.price; //the name attribut in the ejs file
   const description = req.body.description; //the name attribut in the ejs file
   console.log("this is the user object   :", user);
-  req.user
-    .createProduct({
-      title: title,
+  req.User.createProduct({
+    title: title,
       price: price,
       imageUrl: imageUrl,
       description: description,
