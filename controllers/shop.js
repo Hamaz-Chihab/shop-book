@@ -1,17 +1,17 @@
 const Product = require("../modules/product"); //importing the class from module file
 const Cart = require("../modules/cart"); //importport the cart module
-//cart middleware in shop route
+const User = require("../modules/user");
 exports.getCart = (req, res, next) => {
   // Vérifiez si req.user est défini
-  if (!req.user) {
-    return res.status(401).json({ message: "Unauthorized" });
-  }
+  // if (!req.user) {
+  //   return res.status(401).json({ message: "Unauthorized" });
+  // }
 
   console.log("this is the req.user from get cart :", req.user);
-  req.user
-    .getCart()
-    .then((cart) => {
-      return cart
+  Cart.findAll({ where: { userId: 1 } })
+    .then((carts) => {
+      const cart = carts[0];
+      cart
         .getProducts()
         .then((products) => {
           res.render("shop/cart", {
@@ -19,7 +19,7 @@ exports.getCart = (req, res, next) => {
             path: "/shop-cart", //the views file path
             products: products,
           });
-        })
+        }) 
         .catch((err) =>
           console.log("this is an error in getCart from shopController :", err)
         );

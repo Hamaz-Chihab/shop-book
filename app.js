@@ -42,14 +42,18 @@ app.get("/", function (req, res, next) {
 
 Product.belongsTo(User, { constraints: true, onDelete: "CASCADE" }); //a userId will add to product Table && the 'onDelete :'CASCADE''mean that if a User is deleted the product related to will also deleted
 User.hasMany(Product);
+
 User.hasOne(Cart);
-Cart.belongsTo(User); //UserId will added as an attribut to Cart module
+// Cart.belongsTo(User); //UserId will added as an attribut to Cart module
+
+//a cart can contain many product and product can be apart of many carts
 Product.belongsToMany(Cart, { through: CartItem });
 Cart.belongsToMany(Product, { through: CartItem });
 
 // Ensuite, synchronisez vos modèles avec la base de données
+// Synchronize your models with the database
 sequelize
-  .sync()
+  .sync({ force: true }) //to make sure that all tables have recreated
   .then((result) => {
     return User.findByPk(1);
   })
@@ -62,29 +66,19 @@ sequelize
         password: "123",
       });
     }
-    // Attachez l'utilisateur à req.user
-    return user; // Renvoyez l'utilisateur existant si l'utilisateur existe déjà
+    // Return the existing user if the user exists already
+    return user;
   })
   .then((user) => {
     return user.createCart();
     console.log("this is user", user);
   })
   .then((cart) => {
-    // Enregistrez le middleware ici
-    app.use((req, res, next) => {
-      User.findByPk(1)
-        .then((user) => {
-          req.user = user;
-          next();
-        })
-        .catch((error) => {
-          console.error("An error occurred:", error);
-        });
-    });
-
-    app.listen(3000);
     console.log("this is cart : ", cart);
   })
   .catch((error) => {
     console.error("An error occurred:", error);
   });
+
+// Start the server
+app.listen(3000);

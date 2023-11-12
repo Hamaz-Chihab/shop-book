@@ -26,4 +26,7 @@ const User = sequelize.define("user", {
     allowNull: false,
   },
 });
+User.prototype.getCart = function () {
+  return Cart.findOne({ where: { userId: this.id } });
+};
 module.exports = User;
