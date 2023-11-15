@@ -4,14 +4,18 @@ include('../includes/navigation.ejs')%>
   <% if (products.length > 0){ %>
   <ul>
     <% products.forEach(p => { %>
-    <li>
-      <h1><%= p.title %></h1>
-      <h2>Quantity :<%= p.cartItem.qty %></h2>
-      <form action="/cart-delete-item " method="POST">
-        <input type="hidden" value="<%=p.id%>" name="productId" />
-        <button class="btn danger" type="submit">Delete</button>
-      </form>
-    </li>
+    <div class="card" style="width: 18rem">
+      <img src="..." class="card-img-top" alt="<%=p.imageUrl%>" />
+      <div class="card-body">
+        <h5 class="card-title"><%= p.title %></h5>
+        <li class="list-group-item">Quantity :<%= p.cartItem.qty %></li>
+        <p class="card-text">
+          Some quick example text to build on the card title and make up the
+          bulk of the card's content.
+        </p>
+        <a href="#" class="btn danger">Delete</a>
+      </div>
+    </div>
     <%}) %>
   </ul>
   <%}else{%>
