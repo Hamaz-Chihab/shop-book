@@ -6,15 +6,19 @@
     <%- include('../includes/navigation.ejs')%>
 
         <body>
-            <h1>this is the shop-products in the Shop Route PAGE </h1>
+            <h1>This is the index in the Shop Route PAGE </h1>
             <% if(prods.length> 0 ){%>
                 <section class="product">
                     <%for(let product of prods) {%>
-                        <div class="product_card">                                
-                            <img src= <%=product.imageUrl %> alt="">
+                        <div class="product_card">    
                             <h2>
                                 <%= product.title %>
                             </h2>
+                            <div class="img_div">
+                                <img src= <%=product.imageUrl %> alt="">
+                            </div>                            
+                            
+                            
                             <p class="price">
                                 <%= product.price %> $
                             </p>
@@ -23,8 +27,12 @@
                             </p>
                         
                             <!-- <a href="/products/">Details</a> -->
+                          <div class="links">
+                            <a href="/shop-product/<%= product._id %>" class="btn">Details</a>
                             <%- include('../includes/add-to-cart.ejs',{product : product})%>
-                            </div>
+
+                          </div>
+                        </div>  
                         <% }%>
                 </section>
                 <%} else {%>
@@ -37,3 +45,4 @@
 
 
 
+        

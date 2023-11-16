@@ -3,7 +3,7 @@ const MongoClient = mongodb.MongoClient;
 let _db;
 const mongoConnect = (callback) => {
   MongoClient.connect(
-    "mongodb+srv://Chihabhmz:lhech123@cluster0.wl9lsed.mongodb.net/shop?retryWrites=true&w=majority"
+    "mongodb+srv://chihabHMZ:helloworld@cluster0.8b2ll09.mongodb.net/?retryWrites=true&w=majority"
   )
     .then((client) => {
       console.log("DB Connected !");

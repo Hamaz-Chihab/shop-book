@@ -18,8 +18,8 @@ const rootDir = require("./util/path.js");
 //importing the routes :
 const adminData = require("./routes/admin.js"); //importing the admin-route
 app.use("/admin", adminData);
-// const shopRoutes = require("./routes/shop.js"); //importing the shop-route
-// app.use(shopRoutes);
+const shopRoutes = require("./routes/shop.js"); //importing the shop-route
+app.use(shopRoutes);
 //parsing the incomming requests :
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));

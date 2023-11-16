@@ -19,7 +19,7 @@ exports.getCart = (req, res, next) => {
             path: "/shop-cart", //the views file path
             products: products,
           });
-        }) 
+        })
         .catch((err) =>
           console.log("this is an error in getCart from shopController :", err)
         );
@@ -77,7 +77,7 @@ exports.getCheckout = (req, res, next) => {
 
 //working with the MYSQL Data Base :
 exports.getIndex = (req, res, next) => {
-  Product.findAll()
+  Product.fetchAll()
     .then((products) => {
       res.render("shop/index", {
         prods: products,
@@ -118,11 +118,11 @@ exports.getOrders = (req, res, next) => {
 exports.getProduct = (req, res, next) => {
   const prodId = req.params.productId;
   // console.log("this is the ID ", prodId);
-  Product.findAll({ where: { id: prodId } }) //this function use the where query module to return an array named products in (.then) of objects according to the ID
-    .then((products) => {
+  Product.findById(prodId) //this function use the where query module to return an array named products in (.then) of objects according to the ID
+    .then((product) => {
       res.render("shop/product-detail.ejs", {
-        product: products[0],
-        titlePage: products[0].title,
+        product: product,
+        titlePage: product.title,
         path: "/shop-product/:productId",
       });
     })
@@ -133,7 +133,7 @@ exports.getProduct = (req, res, next) => {
 
 //working with MYSQL :
 exports.getProducts = (req, res, next) => {
-  Product.findAll()
+  Product.fetchAll()
     .then((products) => {
       res.render("shop/product-list", {
         prods: products, //prods is used for shop-route and products is in the server
