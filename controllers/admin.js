@@ -114,20 +114,20 @@ exports.postAddProduct = (req, res, next) => {
 //     );
 // };
 
-// exports.getProducts = (req, res, next) => {
-//   Product.findAll() //it doesn't return an array
-//     .then((products) => {
-//       res.render("admin/products", {
-//         //the ejs file to render it
-//         prods: products, //prods is used for shop-route and products is in the server
-//         titlePage: "admin-product",
-//         path: "/products", //the path of the porte opened
-//       });
-//     })
-//     .catch((err) => {
-//       console.log(
-//         "this is an error from GetProducts in admin controller : ",
-//         err
-//       );
-//     });
-// };
+exports.getProducts = (req, res, next) => {
+  Product.fetchAll() //it doesn't return an array
+    .then((products) => {
+      res.render("admin/products", {
+        //the ejs file to render it
+        prods: products, //prods is used for shop-route and products is in the server
+        titlePage: "admin-product",
+        path: "/products", //the path of the porte opened
+      });
+    })
+    .catch((err) => {
+      console.log(
+        "this is an error from GetProducts in admin controller : ",
+        err
+      );
+    });
+};

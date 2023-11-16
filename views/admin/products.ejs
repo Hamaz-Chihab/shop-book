@@ -1,35 +1,3 @@
-    <!-- <link rel="stylesheet" href="/css/product.css">
-    </head>
-
-    <body>
-
-            <main>
-                <form class="product-form" action="/admin/add-product" method="post">
-                    <div class="form-control">
-                        <label for="title">Title</label>
-                        <input type="text" name="title" id="title">
-                    </div>
-                    <div class="form-control">
-                        <label for="imageUrl">image URL</label>
-                        <input type="text" name="imageUrl" id="imageUrl">
-                    </div>
-                    <div class="form-control">
-                        <label for="price">Price</label>
-                        <input type="number" name="price" id="price" step="0.01">
-                    </div>
-                    <div class="form-control">
-                        <label for="description">Description</label>
-                        <textarea name="description" id="description" cols="30" rows="5"></textarea>
-                    </div>
-
-                </form>
-            </main>
-
-    </body>
-
-    </html>  -->
-
-
     <%- include('../includes/head.ejs')%>
     <link rel="stylesheet" href="/css/shop.css">
     <link rel="stylesheet" href="/css/product-list.css">
@@ -42,40 +10,22 @@
             <% if(prods.length> 0 ){%>
                 <section class="product">
                     <%for(let product of prods) {%>
-                        <!-- <div class="product_card">                                
-                            <img src=  alt="">
-                            <h2>
-                                
-                            </h2>
-                            <p class="price">
-                                
-                            </p>
-                            <p>                            
-                                
-                            </p>
-                            
-                            <a href="/shop-products">Details</a>
-                            
-                            </div> -->
-                            <div class="card" style="width: 18rem;">
-                                <img src=<%=product.imageUrl %> class="card-img-top" alt="img">
+                        <div class="card" style="width: 18rem;">
+                            <img src=<%=product.imageUrl %> class="card-img-top" alt="img">
                                 <div class="card-body">
-                                  <h5 class="card-title"><%= product.title %></h5>
-                                  <p class="card-text"><%= product.price %> $</p>
-                                  <p class="card-text"><%= product.description %></p>
+                                <h5 class="card-title"><%= product.title %></h5>
+                                <p class="card-text"><%= product.price %> $</p>
+                                <p class="card-text"><%= product.description %></p>
 
-                                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                                  <div class="cart-action">
-                                    <a href="/admin/edit-product/<%=product.id%>?edit=true" class="btn btn-warning">Edit</a>
+                                <div class="cart-action">
+                                    <a href="/admin/edit-product/<%=product._id%>?edit=true" class="btn btn-warning">Edit</a>
                                     <form action="/admin/delete-product" method="post">
-                                        <input type="hidden" value="<%=product.id%>" name="productId">
+                                        <input type="hidden" value="<%=product._id%>" name="productId">
                                         <button  class="btn btn-danger" type="submit" href="/admin/delete-product">Delete</button>
                                     </form>
                                 </div>
-                                </div>
-                              </div>
-                            
-                            
+                            </div>
+                            </div>
                         <% }%>
 
                         
