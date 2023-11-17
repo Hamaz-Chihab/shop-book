@@ -27,7 +27,8 @@
                     <!-- this is hedden input to fetche it with the updated cart-values : -->
                     <% if(editing){%> 
                         <!--this input will sended when we edit a product -->
-                        <input type="hidden" value="<%=product.id%>" name="productId"><%}%>
+                        <input type="hidden" value="<%=product._id%>" name="productId">
+                    <%}%>
 
                     <button type="submit" class="active" href="/admin/add-products"><% if (editing ){%> Apdated Product <%}else {%> Add Product <%} %>  </button>
                 </form>
