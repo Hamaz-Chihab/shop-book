@@ -88,23 +88,19 @@ exports.getEditProduct = (req, res, next) => {
     });
 };
 
-// exports.postDeleteProduct = (req, res, next) => {
-//   const prodId = req.body.productId;
-//   Product.findAll({ where: { id: prodId } }) //find the product to delete
-//     .then((products) => {
-//       products[0].destroy(); //delete from DB
-//     })
-//     .then((result) => {
-//       console.log("Prosuct Has been deleted Succefuly ");
-//       res.redirect("/admin/products");
-//     })
-//     .catch((err) =>
-//       console.log(
-//         "this is an error in postDeleteProduct in admin Controller :",
-//         err
-//       )
-//     );
-// };
+exports.postDeleteProduct = (req, res, next) => {
+  const prodId = req.body.productId;
+  Product.DeleteById(prodId)
+    .then((result) => {
+      res.redirect("/admin/products");
+    })
+    .catch((err) =>
+      console.log(
+        "this is an error in postDeleteProduct in admin Controller :",
+        err
+      )
+    );
+};
 
 exports.getProducts = (req, res, next) => {
   Product.fetchAll() //it doesn't return an array
