@@ -6,7 +6,7 @@ class Product {
     this.price = price;
     this.description = description;
     this.imageUrl = imageUrl;
-    this._id = id;
+    this._id = id ? new object.ObjectId(id) : null;
   }
   save() {
     const db = getDb(); //get access to my DB by calling getDb
