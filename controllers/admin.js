@@ -15,7 +15,16 @@ exports.postAddProduct = (req, res, next) => {
   const imageUrl = req.body.imageUrl; //the name attribut in the ejs file
   const price = req.body.price; //the name attribut in the ejs file
   const description = req.body.description; //the name attribut in the ejs file
-  const product = new Product(title, price, description, imageUrl);
+  console.log("user in addProduct  in the admin controller :", req.user);
+  var userId = new ObjectId(req.user._id);
+  const product = new Product(
+    title,
+    price,
+    description,
+    imageUrl,
+    null,
+    userId
+  );
   // console.log("this is the user object   :", user);
   product
     .save()

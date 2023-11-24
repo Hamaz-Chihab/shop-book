@@ -3,7 +3,7 @@ const getDb = require("../util/dataBase").getDb; //to get intract with the DB
 const ObjectId = mongodb.ObjectId;
 class User {
   constaructor(username, email) {
-    this.username = username;
+    this.userName = username;
     this.email = email;
   }
   save() {
@@ -29,7 +29,14 @@ class User {
   }
   static findById(userId) {
     const db = getDb();
-    return db.collection("users").findOne({ _id: ObjectId(userId) });
+    return db
+      .collection("users")
+      .findOne({ _id: new ObjectId(userId) })
+      .then((user) => {
+        // console.log(user);
+        return user;
+      })
+      .catch((err) => console.log("error in userfindById :", err));
   }
 }
 module.exports = User;

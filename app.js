@@ -16,6 +16,14 @@ app.set("views", "views");
 //path system :
 const path = require("path");
 const rootDir = require("./util/path.js");
+app.use((req, res, next) => {
+  User.findById("655f30750204ed9a2937e636")
+    .then((user) => {
+      req.user = user;
+      next();
+    })
+    .catch((err) => console.log("error in the app.js file : ", err));
+});
 //importing the routes :
 const adminData = require("./routes/admin.js"); //importing the admin-route
 app.use("/admin", adminData);
@@ -30,14 +38,7 @@ app.use((req, res, next) => {
 app.get("/", function (req, res, next) {
   res.status(404).render("error", { title: "error page" });
 });
-app.use((req, res, next) => {
-  User.findById("")
-    .then((user) => {
-      req.user = user;
-      next();
-    })
-    .catch((err) => console.log("error in the app.js file : ", err));
-});
+
 mongoConnect(() => {
   app.listen(3000);
 });

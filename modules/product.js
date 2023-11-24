@@ -1,33 +1,17 @@
 const mongodb = require("mongodb");
 const getDb = require("../util/dataBase").getDb; //to get intract with the DB
 class Product {
-  constructor(title, price, description, imageUrl, id) {
+  constructor(title, price, description, imageUrl, id, userId) {
     this.title = title;
     this.price = price;
     this.description = description;
     this.imageUrl = imageUrl;
     this._id = id ? new object.ObjectId(id) : null;
+    this.userId = userId;
   }
   save() {
     const db = getDb(); //get access to my DB by calling getDb
-    let dbOp;
-    if (this._id) {
-      //we are in the updating mode :
-      dbOp = db
-        .collection("products")
-        .updateOne({ _id: new mongodb.ObjectId(this._id) }, { $set: this }); //to overide the product find with the filter by 'this' object <<this = all attributs >>
-      // .updateOne({ _id: new mongodb.ObjectId(this._id) }, { $set: {title : this.title , price : this.price} });//to can update only Title and price
-    } else {
-      //we are in the inserting new product mode :
-      dbOp = db.collection("products").insertOne(this);
-    }
-    return dbOp
-      .then((result) => {
-        console.log("this is the Product you created :", result);
-      })
-      .catch((err) => {
-        console.log(err);
-      }); //to tell mongoDb in witch collection you want to insert something
+    return db.collection("products").insertOne(this); //to tell mongoDb in witch collection you want to insert something
   }
   static fetchAll() {
     const db = getDb(); //get access to my DB by calling getDb
