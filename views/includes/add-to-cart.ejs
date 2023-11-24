@@ -1,7 +1,5 @@
-
 <form action="/shop-cart" method="post">
   <!-- it is a post request  -->
-  <button type="submit">Add to Cart</button>
-  <input type="hidden" name="productId" value="<%= product.id %>" />
-  <a href="/shop-product/<%=product.id%>">Details</a>
+  <button type="submit" class="btn btn-secondary">Add to Cart</button>
+  <input type="hidden" name="productId" value="<%= product._id %>" />
 </form>

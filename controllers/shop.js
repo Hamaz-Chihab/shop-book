@@ -1,70 +1,79 @@
 const Product = require("../modules/product"); //importing the class from module file
 const Cart = require("../modules/cart"); //importport the cart module
 const User = require("../modules/user");
-exports.getCart = (req, res, next) => {
-  // Vérifiez si req.user est défini
-  // if (!req.user) {
-  //   return res.status(401).json({ message: "Unauthorized" });
-  // }
+// exports.getCart = (req, res, next) => {
+// Vérifiez si req.user est défini
+// if (!req.user) {
+//   return res.status(401).json({ message: "Unauthorized" });
+// }
 
-  console.log("this is the req.user from get cart :", req.user);
-  Cart.findAll({ where: { userId: 1 } })
-    .then((carts) => {
-      const cart = carts[0];
-      cart
-        .getProducts()
-        .then((products) => {
-          res.render("shop/cart", {
-            titlePage: "shop-cart",
-            path: "/shop-cart", //the views file path
-            products: products,
-          });
-        })
-        .catch((err) =>
-          console.log("this is an error in getCart from shopController :", err)
-        );
-    })
-    .catch((err) =>
-      console.log("this is an error in getCart from shopController :", err)
-    );
-};
+//   console.log("this is the req.user from get cart :", req.user);
+//   Cart.findAll({ where: { userId: 1 } })
+//     .then((carts) => {
+//       const cart = carts[0];
+//       cart
+//         .getProducts()
+//         .then((products) => {
+//           res.render("shop/cart", {
+//             titlePage: "shop-cart",
+//             path: "/shop-cart", //the views file path
+//             products: products,
+//           });
+//         })
+//         .catch((err) =>
+//           console.log("this is an error in getCart from shopController :", err)
+//         );
+//     })
+//     .catch((err) =>
+//       console.log("this is an error in getCart from shopController :", err)
+//     );
+// };
 
 exports.postCart = (req, res, next) => {
   // console.log(req.body);
   const prodId = req.body.productId; //link between the view file and the midleware
-  let fetchedCart;
-  req.user
-    .getCart()
-    .then((cart) => {
-      fetchedCart = cart;
-      return cart.getProducts({ where: { id: prodId } });
-    })
-    .then((products) => {
-      let product;
-      if (products.length > 0) {
-        //extract the product obj from products array
-        product = products[0];
-      }
-      let newQuantity;
-      //if the product we extract exist
-      if (product) {
-        //get the old quantity and updated it
-      }
-      return Product.findByPk(prodId);
-    })
+  Product.findById(prodId)
     .then((product) => {
-      return fetchedCart.addProduct(product, {
-        through: { newQuantity: newQuantity },
-      });
+      console.log("shopUser in the shop Controller  = ", req.user);
+      return req.user.addToCart(product);
     })
-    .catch((err) => console.log(err))
-    .then(() => {
-      res.redirect("/shop-cart");
+    .then((result) => {
+      console.log("the rusult in the ", result);
     })
+    .catch((err) => console.log("this is an error in shop Controller :", err));
+  // let fetchedCart;
+  // req.user
+  //   .getCart()
+  //   .then((cart) => {
+  //     fetchedCart = cart;
+  //     return cart.getProducts({ where: { id: prodId } });
+  //   })
+  //   .then((products) => {
+  //     let product;
+  //     if (products.length > 0) {
+  //       //extract the product obj from products array
+  //       product = products[0];
+  //     }
+  //     let newQuantity;
+  //     //if the product we extract exist
+  //     if (product) {
+  //       //get the old quantity and updated it
+  //     }
+  //     return Product.findByPk(prodId);
+  //   })
+  //   .then((product) => {
+  //     return fetchedCart.addProduct(product, {
+  //       through: { newQuantity: newQuantity },
+  //     });
+  //   })
+  //   .catch((err) => console.log(err))
+  //   .then(() => {
+  //     res.redirect("/shop-cart");
+  //   })
 
-    .catch((err) => {
-      console.log("this is an error in PostCart :", err);
-    });
+  //   .catch((err) => {
+  //     console.log("this is an error in PostCart :", err);
+  //   });
 };
 
 //checkout middleware in shop route
