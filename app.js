@@ -19,7 +19,7 @@ app.use((req, res, next) => {
   User.findById("6560dad20204ed9a2937e640")
     .then((user) => {
       if (user) {
-        req.user = new User(user.userName, user.email, user._cart, user._id);
+        req.user = new User(user.userName, user.email, user.cart, user._id);
         console.log("this is the user in app.js : ", user);
         console.log("this is the req.user in app.js :", req.user);
         next();
@@ -48,6 +48,7 @@ app.use((req, res, next) => {
 app.use(shopRoutes);
 app.use("/admin", adminData);
 
+// eslint-disable-next-line no-unused-vars
 app.get("/", function (req, res, next) {
   res.status(404).render("error", { title: "error page" });
 });

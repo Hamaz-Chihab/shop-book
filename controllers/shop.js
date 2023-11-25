@@ -33,14 +33,7 @@ exports.postCart = (req, res, next) => {
   console.log("shopcontroller in the shop Controller  = ", req.user);
   Product.findById(prodId)
     .then((product) => {
-      const shopUser = new User(
-        req.user.userName,
-        req.user.email,
-        req.user._cart,
-        req.user._id
-      );
-      console.log("shopUser = ", shopUser);
-      return shopUser.addToCart(product);
+      return req.user.addToCart(product);
     })
     .then((result) => {
       console.log("the rusult in the ", result);
