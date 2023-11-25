@@ -2,7 +2,7 @@ const mongodb = require("mongodb");
 const getDb = require("../util/dataBase").getDb; //to get intract with the DB
 const ObjectId = mongodb.ObjectId;
 class User {
-  constaructor(userName, email, cart, id) {
+  constructor(userName, email, cart, id) {
     this.userName = userName;
     this.email = email;
     this.cart = cart;
@@ -29,8 +29,7 @@ class User {
         console.log(err);
       }); //to tell mongoDb in witch collection you want to insert something
   }
-
-  static addToCart(product) {
+  addToCart(product) {
     const updatedCart = {
       items: [{ productID: new ObjectId(product._id), quantity: 1 }],
     };
@@ -40,6 +39,7 @@ class User {
       { $set: { cart: updatedCart } }
     );
   }
+
   static findById(userId) {
     const db = getDb();
     return db

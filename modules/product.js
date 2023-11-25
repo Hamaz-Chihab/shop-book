@@ -20,7 +20,7 @@ class Product {
       .find() //return curser(pointeur)
       .toArray() //return an array of products finding with the methode Find
       .then((products) => {
-        console.log("fetchAll exectuted succesfuly :", products);
+        console.log("fetchAll exectuted succesfuly");
         return products;
       })
       .catch((err) => {
@@ -34,7 +34,7 @@ class Product {
       .find({ _id: new mongodb.ObjectId(prodId) }) //the ID in mongoDb object is stored in a way named 'bson' witch is a javaScript object and to transform prodId we use :new mongodb.ObjectId(prodId)
       .next()
       .then((product) => {
-        console.log("findById exectuted succesfuly :", product);
+        console.log("findById exectuted succesfuly ");
         return product;
       })
       .catch((err) => {

@@ -1,5 +1,4 @@
 const Product = require("../modules/product"); //importing the class from module file
-const Cart = require("../modules/cart"); //importport the cart module
 const User = require("../modules/user");
 // exports.getCart = (req, res, next) => {
 // Vérifiez si req.user est défini
@@ -30,17 +29,22 @@ const User = require("../modules/user");
 // };
 
 exports.postCart = (req, res, next) => {
-  // console.log(req.body);
   const prodId = req.body.productId; //link between the view file and the midleware
+  console.log("shopcontroller in the shop Controller  = ", req.user);
   Product.findById(prodId)
     .then((product) => {
-      console.log("shopUser in the shop Controller  = ", req.user);
-      return req.user.addToCart(product);
+      const shopUser = new User(
+        req.user.userName,
+        req.user.email,
+        req.user._cart,
+        req.user._id
+      );
+      console.log("shopUser = ", shopUser);
+      return shopUser.addToCart(product);
     })
     .then((result) => {
       console.log("the rusult in the ", result);
-    })
-    .catch((err) => console.log("this is an error in shop Controller :", err));
+    });
   // let fetchedCart;
   // req.user
   //   .getCart()
