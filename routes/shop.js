@@ -10,7 +10,7 @@ const shopController = require("../controllers/shop");
 
 // router.get("/shop-cart", shopController.getCart);
 
-// router.post("/shop-cart", shopController.postCart);
+router.post("/shop-cart", shopController.postCart);
 
 // router.get("/shop-checkout", shopController.getCheckout);
 
