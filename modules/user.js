@@ -2,11 +2,11 @@ const mongodb = require("mongodb");
 const getDb = require("../util/dataBase").getDb; //to get intract with the DB
 const ObjectId = mongodb.ObjectId;
 class User {
-  constructor(userName, email, cart, id) {
+  constructor(userName, email, cart, _id) {
     this.userName = userName;
     this.email = email;
     this.cart = cart;
-    this._id = id; //this is the  ID of cart related to the user to can refers the cart
+    this._id = _id;
   }
   save() {
     const db = getDb(); //get access to my DB by calling getDb
@@ -30,7 +30,6 @@ class User {
       .collection("users")
       .findOne({ _id: new ObjectId(userId) })
       .then((user) => {
-        // console.log(user);
         return user;
       })
       .catch((err) => console.log("error in userfindById :", err));

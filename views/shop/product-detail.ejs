@@ -1,5 +1,8 @@
 <%- include('../includes/head.ejs')%>
+
 <link rel="stylesheet" href="/css/product-detail.css">
+
+
 </head>
 
 </body>
@@ -16,9 +19,5 @@
         </div>
         <h2> <%= product.price %> $</h2>
         <p><%= product.description %></p>
-        <div class="links">
-            <a href="/shop-product/<%= product._id %>" class="btn">Details</a>
-            <%- include('../includes/add-to-cart.ejs',{product : product})%>
-          </div>
         <%- include('../includes/add-to-cart.ejs',{product : product})%>
     </main>
