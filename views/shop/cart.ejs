@@ -8,12 +8,15 @@ include('../includes/navigation.ejs')%>
       <img src="..." class="card-img-top" alt="<%=p.imageUrl%>" />
       <div class="card-body">
         <h5 class="card-title"><%= p.title %></h5>
-        <li class="list-group-item">Quantity :<%= p.cartItem.qty %></li>
+        <H2>Quantity :<%= p.quantity %></H2>
+        <form action="/cart-delete-item" method="POST">
+          <input type="hidden" value="<%=p._id%>" name="productId" />
+          <button class="btn danger">Delete</button>
+        </form>
         <p class="card-text">
           Some quick example text to build on the card title and make up the
           bulk of the card's content.
         </p>
-        <a href="#" class="btn danger">Delete</a>
       </div>
     </div>
     <%}) %>

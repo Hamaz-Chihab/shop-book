@@ -6,6 +6,7 @@ class Product {
     this.price = price;
     this.description = description;
     this.imageUrl = imageUrl;
+    // eslint-disable-next-line no-undef
     this._id = id ? new object.ObjectId(id) : null;
     this.userId = userId;
   }
@@ -34,6 +35,7 @@ class Product {
       .find({ _id: new mongodb.ObjectId(prodId) }) //the ID in mongoDb object is stored in a way named 'bson' witch is a javaScript object and to transform prodId we use :new mongodb.ObjectId(prodId)
       .next()
       .then((product) => {
+        console.log("findById exectuted succesfuly :", product);
         console.log("findById exectuted succesfuly ");
         return product;
       })

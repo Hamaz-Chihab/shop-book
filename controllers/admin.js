@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const Product = require("../modules/product"); //importing the class from module file
 const mongodb = require("mongodb");
 const ObjectId = mongodb.ObjectId; //extract the ObjID fct out of mongodb
