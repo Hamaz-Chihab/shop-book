@@ -1,47 +1,22 @@
 /* eslint-disable no-unused-vars */
 const Product = require("../modules/product"); //importing the class from module file
-const User = require("../modules/user");
-// exports.getCart = (req, res, next) => {
-// Vérifiez si req.user est défini
-// if (!req.user) {
-//   return res.status(401).json({ message: "Unauthorized" });
-// }
 
-//   console.log("this is the req.user from get cart :", req.user);
-//   Cart.findAll({ where: { userId: 1 } })
-//     .then((carts) => {
-//       const cart = carts[0];
-//       cart
-//         .getProducts()
-//         .then((products) => {
-//           res.render("shop/cart", {
-//             titlePage: "shop-cart",
-//             path: "/shop-cart", //the views file path
-//             products: products,
-//           });
-//         })
-//         .catch((err) =>
-//           console.log("this is an error in getCart from shopController :", err)
-//         );
-//     })
-//     .catch((err) =>
-//       console.log("this is an error in getCart from shopController :", err)
-//     );
-// };
+exports.getCart = (req, res, next) => {
+  req.user.getCart().then((products) => {
+    res.render("shop/cart", {
+      titlePage: "shop-cart",
+      path: "/shop-cart", //the views file path
+      products: products,
+    });
+  });
+};
 
 exports.postCart = (req, res, next) => {
   const prodId = req.body.productId; //link between the view file and the midleware
   console.log("shopcontroller in the shop Controller = ", req.user);
   Product.findById(prodId)
     .then((product) => {
-      const shopUser = new User(
-        req.user.userName,
-        req.user.email,
-        req.user.cart,
-        req.user._id
-      );
-      console.log("shopUser = ", shopUser);
-      return shopUser.addToCart(product);
+      return req.user.addToCart(product);
     })
     .then((result) => {
       console.log("the rusult in the ", result);
