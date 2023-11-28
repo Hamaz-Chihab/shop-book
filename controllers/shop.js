@@ -20,6 +20,7 @@ exports.postCart = (req, res, next) => {
     })
     .then((result) => {
       console.log("the rusult in the ", result);
+      res.redirect("/shop-cart");
     })
     .catch((err) => console.log("this is an error in shop Controller :", err));
   // let fetchedCart;
@@ -49,7 +50,6 @@ exports.postCart = (req, res, next) => {
   //   })
   //   .catch((err) => console.log(err))
   //   .then(() => {
-  //     res.redirect("/shop-cart");
   //   })
 
   //   .catch((err) => {

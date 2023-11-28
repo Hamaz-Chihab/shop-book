@@ -32,6 +32,9 @@ body {
   padding: 1rem;
   row-gap: 1rem;
 }
+.card {
+  flex-basis: 32%;
+}
 .product_card {
   flex-basis: 31%;
   display: flex;

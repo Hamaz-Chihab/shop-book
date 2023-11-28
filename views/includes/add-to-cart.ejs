@@ -1,12 +1,5 @@
 <form action="/shop-cart" method="post">
   <!-- <button class="btn btn-success" type="submit">Add to Cart</button> -->
-  <!-- <a
-    class="<%= path === '/shop-cart' ? 'active' : ''%>"
-    type="button"
-    class="btn btn-warning"
-    href="/shop-cart">
-    Add To Cart
-  </a> -->
   <button type="submit" class="btn btn-success">Add To Cart</button>
   <input type="hidden" name="productId" value="<%= product._id %>" />
 </form>
