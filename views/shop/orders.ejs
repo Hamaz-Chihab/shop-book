@@ -1,7 +1,25 @@
 <%- include('../includes/head.ejs')%>
+<head>
+  <%- include('../includes/navigation.ejs')%>
 </head>
-
+<body>
+  <main>
+    <% if (orders.length <= 0) { %>
+    <h1>Nothing there!</h1>
+    <% } else { %>
+    <ul>
+      <% orders.forEach(order => { %>
+      <li>
+        <h1>Order - # <%= order._id %></h1>
+        <ul>
+          <% order.items.forEach(product => { %>
+          <li><%= product.productId %> (<%= product.quantity %>)</li>
+          <% }); %>
+        </ul>
+      </li>
+      <% }); %>
+    </ul>
+    <% } %>
+  </main>
+  <%-include('../includes/end.ejs')%>
 </body>
-    <%- include('../includes/navigation.ejs')%>
-    <%-include('../includes/end.ejs')%> 
-   <h1> this is the order PAGE </h1>

@@ -1,5 +1,23 @@
 /* eslint-disable no-unused-vars */
 const Product = require("../modules/product"); //importing the class from module file
+exports.postOrder = (req, res, next) => {
+  // let fetchedCart;
+  req.user
+    .addOrder()
+    .then((result) => {
+      res.redirect("/shop-orders");
+    })
+    .catch((err) => console.log(err));
+};
+exports.getOreder = (req, res, next) => {
+  req.user.getOrders().then((orders) => {
+    res.render("/orders.ejs", {
+      titlePage: "shop-order",
+      path: "/shop-orders",
+      orders: orders,
+    });
+  });
+};
 
 exports.getCart = (req, res, next) => {
   req.user.getCart().then((products) => {
@@ -13,58 +31,26 @@ exports.getCart = (req, res, next) => {
 
 exports.postCart = (req, res, next) => {
   const prodId = req.body.productId; //link between the view file and the midleware
-  console.log("shopcontroller in the shop Controller = ", req.user);
+  // console.log("shopcontroller in the shop Controller = ", req.user);
   Product.findById(prodId)
     .then((product) => {
+      console.log("this is the product to ADD : ", product);
       return req.user.addToCart(product);
     })
     .then((result) => {
-      console.log("the rusult in the ", result);
+      console.log("cart display succefully");
       res.redirect("/shop-cart");
     })
     .catch((err) => console.log("this is an error in shop Controller :", err));
-  // let fetchedCart;
-  // req.user
-  //   .getCart()
-  //   .then((cart) => {
-  //     fetchedCart = cart;
-  //     return cart.getProducts({ where: { id: prodId } });
-  //   })
-  //   .then((products) => {
-  //     let product;
-  //     if (products.length > 0) {
-  //       //extract the product obj from products array
-  //       product = products[0];
-  //     }
-  //     let newQuantity;
-  //     //if the product we extract exist
-  //     if (product) {
-  //       //get the old quantity and updated it
-  //     }
-  //     return Product.findByPk(prodId);
-  //   })
-  //   .then((product) => {
-  //     return fetchedCart.addProduct(product, {
-  //       through: { newQuantity: newQuantity },
-  //     });
-  //   })
-  //   .catch((err) => console.log(err))
-  //   .then(() => {
-  //   })
-
-  //   .catch((err) => {
-  //     console.log("this is an error in PostCart :", err);
-  //   });
 };
 
-//checkout middleware in shop route
 exports.getCheckout = (req, res, next) => {
   res.render("shop/checkout", {
     titlePage: "shop-checkout",
     path: "/shop-checkout",
   });
 };
-//working with the MYSQL Data Base :
+
 exports.getIndex = (req, res, next) => {
   Product.fetchAll()
     .then((products) => {
@@ -79,20 +65,7 @@ exports.getIndex = (req, res, next) => {
         "this is a probleme from the GETIndex in shop controller :",
         err
       );
-    }); //product here is a SQL module
-  // Product.fetchAll()//product here is a JS module
-  //   .then(([rows, fieldData]) => {
-  //     console.log("this is the fielData", fieldData); //the colone properties of DB
-  //     console.log("this is the Rows :", rows); //first row of the DB
-  //     res.render("shop/index", {
-  //       prods: rows,
-  //       titlePage: "shop-index",
-  //       path: "/shop-index",
-  //     });
-  //   })
-  //   .catch((err) =>
-  //     console.log("this is an error in the shop controller getIndex :/n", err)
-  //   );
+    });
 };
 //orders middleware in shop route
 exports.getOrders = (req, res, next) => {
@@ -132,5 +105,18 @@ exports.getProducts = (req, res, next) => {
         "this is a probleme from the GETProducts in shop controller :",
         err
       );
+    });
+};
+
+exports.postDeleteProduct = (req, res, next) => {
+  const prodId = req.body.productId;
+  req.user
+    .deleteItemFromCart(prodId)
+    .then((result) => {
+      console.log("product delete succefuly !!");
+      res.redirect("/shop-cart");
+    })
+    .catch((err) => {
+      console.log(err);
     });
 };

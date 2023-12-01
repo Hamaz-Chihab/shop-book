@@ -15,12 +15,13 @@ router.post("/shop-cart", shopController.postCart);
 
 router.get("/", shopController.getIndex); //the starting page
 
-// router.get("/shop-orders", shopController.getOrders);
+router.post("/shop-orders", shopController.postOrder);
+router.get("/shop-orders", shopController.getOreder);
 
 router.get("/shop-product/:productId", shopController.getProduct); //this is the Product-Detail.ejs use Dynamic route :the route will be defined by the ID od the product
 
 router.get("/products", shopController.getProducts);
 
-// router.post("/cart-delete-item ", shopController.deleteCartItem);
+router.post("/cart-delete-item", shopController.postDeleteProduct);
 
 router.get("/shop-products", shopController.getProducts);
