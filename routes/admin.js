@@ -10,9 +10,9 @@ const adminController = require("../controllers/admin");
 
 // router.get("/products", adminController.getProducts);
 
-// router.get("/add-product", adminController.getAddProduct);
+router.get("/add-product", adminController.getAddProduct);
 
-// router.post("/add-product", adminController.postAddProduct);
+router.post("/add-product", adminController.postAddProduct);
 
 // router.post("/edit-product", adminController.postEditProduct);
 
