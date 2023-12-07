@@ -25,3 +25,23 @@ const router = express.Router();
 
 // router.get("/shop-products", shopController.getProducts);
 module.exports = router;
+
+//controller system:
+const shopController = require("../controllers/shop");
+
+router.get("/shop-cart", shopController.getCart);
+router.post("/shop-cart", shopController.postCart);
+
+// router.get("/shop-checkout", shopController.getCheckout);
+
+router.get("/", shopController.getIndex); //the starting page
+
+// router.get("/shop-orders", shopController.getOrders);
+
+router.get("/shop-product/:productId", shopController.getProduct); //this is the Product-Detail.ejs use Dynamic route :the route will be defined by the ID od the product
+
+router.get("/products", shopController.getProducts);
+
+// router.post("/cart-delete-item ", shopController.deleteCartItem);
+
+router.get("/shop-products", shopController.getProducts);
