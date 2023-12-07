@@ -1,11 +1,12 @@
 /* eslint-disable no-unused-vars */
 //create the web server
 const path = require("path");
+const mongoose = require("mongoose");
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 const User = require("./modules/user.js");
-const mongoConnect = require("./util/dataBase").mongoConnect;
+// const mongoConnect = require("./util/dataBase").mongoConnect;
 
 const shopRoutes = require("./routes/shop.js"); //importing the shop-route
 const adminData = require("./routes/admin.js"); //importing the admin-route
@@ -37,6 +38,13 @@ app.get("/", function (req, res, next) {
   res.status(404).render("error", { title: "error page" });
 });
 
-mongoConnect(() => {
-  app.listen(3000);
-});
+mongoose
+  .connect(
+    "mongodb+srv://chihabHMZ:helloworld@cluster0.8b2ll09.mongodb.net/?retryWrites=true&w=majority"
+  )
+  .then((result) => {
+    app.listen(3000);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
